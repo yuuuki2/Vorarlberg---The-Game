@@ -22,3 +22,4 @@
 
 * Added a new folder for a collection of concepts and ideas to be implemented
 * Started writing down rules for the game
+* Added Description of Question Types
