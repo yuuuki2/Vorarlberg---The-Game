@@ -15,3 +15,10 @@
 ## 28-04-2025 (Moritz)
 
 * Added a description and credit for intelectual property to README.md
+
+
+
+## 29-04-2025 (Moritz)
+
+* Added a new folder for a collection of concepts and ideas to be implemented
+* Started writing down rules for the game
