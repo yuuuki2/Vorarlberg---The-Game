@@ -9,3 +9,9 @@
 * Editing the README.md
 * Manuel is watching the game show on youtube where we have the inspiration
 * Fixing some Bugs from MAUI
+
+
+
+## 28-04-2025 (Moritz)
+
+* Added a description and credit for intelectual property to README.md
