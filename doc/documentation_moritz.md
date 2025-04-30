@@ -17,3 +17,6 @@
 
 
 # 30-04-2025
+
+* Split documentation into three files, one per person
+* Added ideas for questions and question categories
