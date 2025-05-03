@@ -20,3 +20,13 @@
 
 * Split documentation into three files, one per person
 * Added ideas for questions and question categories
+
+
+
+# 02-05-2025
+* Added questions section to `rules.md`
+
+
+
+# 03-05-2025
+* Added card descriptions and curse names to `cards_and_curses.md`

@@ -16,3 +16,7 @@
 * It starts once the seekers enter your [`hiding zone`](#hiding-zone) and get off their transit option. It starts even if they don't know you are here. If they leave it again (by walking away/taking another bus or train) **the endgame continues and does not stop**. If they drive through your [`hiding zone`](#hiding-zone) but dont stop, **the endgame does not start**.
 
 ## Questions
+* The Seekers can ask [`questions`](#questions) to the hider which he has to answer within 5 minutes, except for photo questions which have a 10 minute time limit.
+* For answering questions, the hider may draw cards from the deck and keep a certain number of them. For example, after answering a radar question, the hider may draw 2 cards, keep 1 of them, and put the other one back in the deck.
+* More information about [`questions`](#questions) can be found in `questions.md`.
+* More information about cards can be found in `cards_and_curses.md`
