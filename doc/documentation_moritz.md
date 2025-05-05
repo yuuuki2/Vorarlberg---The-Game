@@ -30,3 +30,9 @@
 
 # 03-05-2025
 * Added card descriptions and curse names to `cards_and_curses.md`
+
+
+
+# 05-5-2025
+* Restructured `concepts_and_ideas` to include app concepts
+* Added Ideas for the toolbar at the bottom of the screen
