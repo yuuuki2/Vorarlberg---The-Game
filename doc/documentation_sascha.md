@@ -6,8 +6,13 @@
 
 * Started with the sketch of the UI and Class diagrams
 * Editing the README.md
-* Manuel is watching the game show on youtube where we have the inspiration
 * Fixing some Bugs from MAUI
 
+
+## 05-05-2025
+
+* Continued the UI in Figma
+* ![UI_Vorarlberg-The-Game](/img/Figma1.png)
+* ![UI_Vorarlberg-The-Game](/img/Figma2.png)
 
 
