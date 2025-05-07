@@ -1,0 +1,163 @@
+@startuml
+' Enums
+enum QuestionCategory {
+  COMPARING
+  MEASURING
+  RADAR
+  THERMOMETER
+  PHOTO
+}
+enum RadarDistance {
+  M_500
+  KM_1
+  KM_2
+  KM_5
+  KM_8
+  KM_15
+  KM_40
+}
+enum ThermometerDistance {
+  M_750
+  KM_5
+  KM_15
+}
+enum TimeBonusType {
+  MIN_3
+  MIN_6
+  MIN_10
+  MIN_15
+  MIN_20
+}
+enum PowerUpType {
+  RANDOMIZE
+  VETO
+  DUPLICATE
+  MOVE
+  DISCARD1_DRAW2
+  DISCARD2_DRAW3
+  DRAW1_EXPAND1
+}
+enum CurseType {
+  ZOOLOGIST
+  UNGUIDED_TOURIST
+  ENDLESS_TUMBLE
+  HIDDEN_HANGMAN
+  OVERFLOWING_CHALICE
+  MEDIOCRE_TRAVEL_AGENT
+  LUXURY_CAR
+  UTURN
+  BRIDGE_TROLL
+  WATER_WEIGHT
+  JAMMED_DOOR
+  CAIRN
+  URBAN_EXPLORER
+  IMPRESSIONABLE_CONSUMER
+  EGG_PARTNER
+  DISTANT_CUISINE
+  RIGHT_TURN
+  LABYRINTH
+  BIRD_GUIDE
+  SPOTTY_MEMORY
+  LEMON_PHYLAGTERY
+  DRAINED_BRAIN
+  RANSOM_NOTE
+  GAMBLERS_FEET
+}
+enum BonusCardType {
+  EXTRA_TIME
+  SKIP_QUESTION
+  BLOCK_SEEKER
+}
+
+' Abstract Question
+abstract class Question {
+  - text : String
+  - category : QuestionCategory
+  + ask() : Answer
+}
+
+' Concrete Questions
+class ComparingQuestion {
+  + ask() : Answer
+}
+ComparingQuestion --|> Question
+
+class MeasuringQuestion {
+  + ask() : Answer
+}
+MeasuringQuestion --|> Question
+
+class RadarQuestion {
+  - distance : RadarDistance
+  + ask() : Answer
+}
+RadarQuestion --|> Question
+
+class ThermometerQuestion {
+  - distance : ThermometerDistance
+  + ask() : Answer
+}
+ThermometerQuestion --|> Question
+
+class PhotoQuestion {
+  + ask() : Answer
+}
+PhotoQuestion --|> Question
+
+' Cards
+abstract class Card {
+  - id : int
+  - name : String
+  - description : String
+}
+class TimeBonus {
+  - type : TimeBonusType
+  - extraMinutes : int
+}
+TimeBonus --|> Card
+
+class PowerUp {
+  - type : PowerUpType
+}
+PowerUp --|> Card
+
+class Curse {
+  - type : CurseType
+  - castingCost : String
+}
+Curse --|> Card
+
+' Players
+abstract class Player {
+  - name : String
+  - location : String
+  + updateLocation() : void
+}
+class Seeker {
+  + ask(q : Question) : Answer
+}
+Seeker --|> Player
+
+class Hider {
+  - hand : List(Card)
+  + addCard(c : Card) : void
+  + answer(q : Question) : Answer
+  + useCard(c : Card) : void
+}
+Hider --|> Player
+
+' GameSession
+class GameSession {
+  - startTime : Date
+  - stopTime : Date
+  - players : List(Player)
+  - questions : List(Question)
+  + startGame() : void
+  + stopGame() : void
+}
+
+' Relations
+Hider "1" *-- "*" Card
+GameSession "1" *-- "*" Player
+GameSession "1" *-- "*" Question
+@enduml

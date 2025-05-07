@@ -1,0 +1,65 @@
+@startuml
+hide circle
+
+entity "Player" as Player {
+  * player_id : PK
+  * name      : VARCHAR
+  * location  : VARCHAR
+  * type      : ENUM('SEEKER','HIDER')
+}
+
+entity "Question" as Question {
+  * question_id           : PK
+  * text                  : TEXT
+  * category              : ENUM('COMPARING','MEASURING','RADAR','THERMOMETER','PHOTO')
+  * radar_distance        : ENUM('M_500','KM_1','KM_2','KM_5','KM_8','KM_15','KM_40')
+  * thermometer_distance  : ENUM('M_750','KM_5','KM_15')
+}
+
+entity "Card" as Card {
+  * card_id     : PK
+  * name        : VARCHAR
+  * description : TEXT
+  * card_type   : ENUM('TIME_BONUS','POWER_UP','CURSE')
+  --
+  * extra_minutes     : INT         -- only for TIME_BONUS
+  * powerup_type      : ENUM('RANDOMIZE','VETO','DUPLICATE','MOVE','DISCARD1_DRAW2','DISCARD2_DRAW3','DRAW1_EXPAND1')
+  * curse_type        : ENUM('ZOOLOGIST','UNGUIDED_TOURIST','ENDLESS_TUMBLE', 'HIDDEN_HANGMAN', '…', 'GAMBLERS_FEET')
+  * casting_cost      : VARCHAR     -- only for CURSE
+}
+
+entity "GameSession" as GameSession {
+  * session_id : PK
+  * start_time : DATETIME
+  * stop_time  : DATETIME
+}
+
+entity "Hider_Card" as HiderCard {
+  * player_id : FK → Player.player_id
+  * card_id   : FK → Card.card_id
+  * PRIMARY KEY(player_id,card_id)
+}
+
+entity "Session_Player" as SessionPlayer {
+  * session_id : FK → GameSession.session_id
+  * player_id  : FK → Player.player_id
+  * PRIMARY KEY(session_id,player_id)
+}
+
+entity "Session_Question" as SessionQuestion {
+  * session_id  : FK → GameSession.session_id
+  * question_id : FK → Question.question_id
+  * PRIMARY KEY(session_id,question_id)
+}
+
+' Beziehungen mit Kardinalitäten
+Player "1" -- "N" HiderCard       : besitzt >
+Card   "1" -- "N" HiderCard       : angelegt >
+
+GameSession "1" -- "N" SessionPlayer       : enthält >
+Player      "1" -- "N" SessionPlayer       : nimmt teil >
+
+GameSession "1" -- "N" SessionQuestion     : stellt >
+Question    "1" -- "N" SessionQuestion     : gehört zu >
+
+@enduml
