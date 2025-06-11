@@ -36,3 +36,23 @@
 # 05-5-2025
 * Restructured `concepts_and_ideas` to include app concepts
 * Added Ideas for the toolbar at the bottom of the screen
+
+
+
+# 19-05-2025
+* Conceptualized Data Bases and Rest API
+
+
+
+# 21-05-2025
+* Conceptualized Data Bases and Rest API
+
+
+
+# 28-05-2025 - 01-06-2025
+* Worked on Read Only Database
+
+
+
+# 07-06-2025 - 09-06-2025
+* Finished on Read Only Database

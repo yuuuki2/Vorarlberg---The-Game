@@ -1,0 +1,381 @@
+<!--Dieser Code wurde mit ChatGPT erstellt, um die Daten auus der Bushaltestellen-Datenbank zu visualisiern und so die Richtigkeit der Daten zu prüfen-->
+<!--Genauer Prompt nicht mehr verfügbar, da ich meinen Chatverlauf gelöscht habe. Ungefährer Wortlaut nächste Zeile-->
+<!--Prompt: Create a Flask app that uses Leaflet to visualize the data, including Gemeinde, Bezirk, Altitude and Bus Routes of every stop-->
+<!--Weitere Prompts: Siehe app.py-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vorarlberg Bus Stops</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    body { margin: 0; padding: 0; }
+    #map { height: 100vh; }
+    .tooltip {
+      font-size: 0.9em;
+      background-color: white;
+      border: 1px solid #ccc;
+      padding: 5px;
+      border-radius: 4px;
+    }
+    .controls {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 1000;
+      background-color: white;
+      padding: 10px;
+      border-radius: 4px;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+    }
+    .controls h4 {
+      margin: 0 0 10px 0;
+    }
+    .controls div {
+      margin-bottom: 5px;
+    }
+    .control-group {
+      border-top: 1px solid #ccc;
+      padding-top: 10px;
+      margin-top: 10px;
+    }
+    .poi-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .slider-container {
+      margin-top: 10px;
+    }
+    .slider {
+      width: 100%;
+    }
+    .filter-info {
+      font-size: 0.9em;
+      margin-top: 5px;
+      color: #555;
+    }
+    .filter-active {
+      color: #007bff;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  
+  <div class="controls">
+    <h4>Map Controls</h4>
+    
+    <div>
+      <input type="checkbox" id="busStopsToggle" checked>
+      <label for="busStopsToggle">Show Bus Stops</label>
+    </div>
+    
+    <div class="control-group">
+      <div>Boundaries:</div>
+      
+      <div>
+        <input type="radio" name="boundaryType" id="noBoundary" value="none" checked>
+        <label for="noBoundary">None</label>
+      </div>
+      
+      <div>
+        <input type="radio" name="boundaryType" id="bundeslandBoundary" value="bundesland">
+        <label for="bundeslandBoundary">Vorarlberg</label>
+      </div>
+      
+      <div>
+        <input type="radio" name="boundaryType" id="bezirkBoundary" value="bezirk">
+        <label for="bezirkBoundary">Bezirke</label>
+      </div>
+      
+      <div>
+        <input type="radio" name="boundaryType" id="gemeindeBoundary" value="gemeinde">
+        <label for="gemeindeBoundary">Gemeinden</label>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <div>Points of Interest:</div>
+      
+      <div>
+        <input type="checkbox" id="poiToggle">
+        <label for="poiToggle">Show Points of Interest</label>
+      </div>
+      
+      <div>
+        <select id="poiTypeFilter">
+          <option value="all">All POI Types</option>
+          <option value="train_station">Train Stations</option>
+          <option value="mountain">Mountains</option>
+          <option value="minigolf_course">Minigolf Courses</option>
+          <option value="museum">Museums</option>
+        </select>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <div>Distance Filter:</div>
+      
+      <div>
+        <input type="checkbox" id="distanceFilterToggle">
+        <label for="distanceFilterToggle">Filter stops by distance</label>
+      </div>
+      
+      <div>
+        <select id="poiDistanceType">
+          <option value="train_station">Train Stations</option>
+          <option value="mountain">Mountains</option>
+          <option value="minigolf_course">Minigolf Courses</option>
+          <option value="museum">Museums</option>
+        </select>
+      </div>
+      
+      <div class="slider-container">
+        <input type="range" min="0" max="20" value="10" step="2" class="slider" id="distanceSlider">
+        <div class="filter-info">Show stops within <span id="distanceValue">10</span> km</div>
+      </div>
+      
+      <div id="filteredCountInfo" class="filter-info">
+        No filter active
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Initialize map
+    const map = L.map('map').setView([47.4, 9.7], 11);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+    
+    // Layer groups
+    const busStopLayer = L.layerGroup().addTo(map);
+    let boundaryLayer = L.layerGroup().addTo(map);
+    const poiLayer = L.layerGroup();
+    
+    // Style functions for boundaries
+    function getStyleForBoundary(type) {
+      const colors = {
+        'bundesland': '#800080', // Purple for Vorarlberg
+        'bezirk': '#0000FF',     // Blue for Bezirke
+        'gemeinde': '#008000'    // Green for Gemeinden
+      };
+      
+      return {
+        fillColor: colors[type] || '#3388ff',
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.2
+      };
+    }
+    
+    // POI icons
+    const poiIcons = {
+      'train_station': L.divIcon({className: 'poi-icon train-station', html: '🚉', iconSize: [24, 24]}),
+      'mountain': L.divIcon({className: 'poi-icon mountain', html: '⛰️', iconSize: [24, 24]}),
+      'minigolf_course': L.divIcon({className: 'poi-icon minigolf', html: '⛳', iconSize: [24, 24]}),
+      'museum': L.divIcon({className: 'poi-icon museum', html: '🏛️', iconSize: [24, 24]})
+    };
+    
+    // Store all bus stops data
+    let allBusStops = [];
+    let filteredBusStops = [];
+    let isDistanceFilterActive = false;
+    
+    // Load bus stops with updated function
+    function loadBusStops(filtered = false) {
+      busStopLayer.clearLayers();
+      
+      const stopsToShow = filtered ? filteredBusStops : allBusStops;
+      
+      stopsToShow.forEach(stop => {
+        const circle = L.circle([stop.lat, stop.lon], {
+          radius: 350, // Radius in meters
+          color: '#007bff',
+          fillColor: '#007bff',
+          fillOpacity: 0.3
+        }).addTo(busStopLayer);
+
+        let distanceInfo = '';
+        if (stop.distance_trainstation !== null) {
+          distanceInfo += `Distance to train station: ${stop.distance_trainstation} km<br>`;
+        }
+        if (stop.distance_mountain !== null) {
+          distanceInfo += `Distance to mountain: ${stop.distance_mountain} km<br>`;
+        }
+        if (stop.distance_minigolf !== null) {
+          distanceInfo += `Distance to minigolf: ${stop.distance_minigolf} km<br>`;
+        }
+        if (stop.distance_museum !== null) {
+          distanceInfo += `Distance to museum: ${stop.distance_museum} km<br>`;
+        }
+
+        circle.bindTooltip(`
+          <div class="tooltip">
+            <strong>${stop.name}</strong><br>
+            Gemeinde: ${stop.gemeinde}<br>
+            Bezirk: ${stop.bezirk}<br>
+            Höhe: ${stop.altitude} m<br>
+            ${distanceInfo}
+            <strong>Routes:</strong> ${stop.routes}
+          </div>
+        `, { direction: 'top' });
+      });
+    }
+    
+    // Initialize by fetching all bus stops
+    fetch('/stops.json')
+      .then(res => res.json())
+      .then(busStops => {
+        allBusStops = busStops;
+        loadBusStops();
+      });
+    
+    // Load POIs
+    function loadPOIs(poiType = 'all') {
+      // Clear existing POIs
+      poiLayer.clearLayers();
+      
+      fetch('/poi.json')
+        .then(res => res.json())
+        .then(pois => {
+          pois.forEach(poi => {
+            if (poiType === 'all' || poi.type === poiType) {
+              const marker = L.marker([poi.lat, poi.lon], {
+                icon: poiIcons[poi.type] || L.divIcon({className: 'poi-icon', html: '📍', iconSize: [24, 24]})
+              }).addTo(poiLayer);
+              
+              marker.bindTooltip(`
+                <div class="tooltip">
+                  <strong>${poi.name}</strong><br>
+                  Type: ${poi.type}
+                </div>
+              `, { direction: 'top' });
+            }
+          });
+        });
+    }
+    
+    // Function to filter bus stops by distance
+    function filterBusStopsByDistance() {
+      if (!isDistanceFilterActive) {
+        loadBusStops(false);
+        document.getElementById('filteredCountInfo').textContent = 'No filter active';
+        document.getElementById('filteredCountInfo').classList.remove('filter-active');
+        return;
+      }
+      
+      const poiType = document.getElementById('poiDistanceType').value;
+      const maxDistance = parseInt(document.getElementById('distanceSlider').value);
+      
+      // Fix the field name construction for train_station
+      let distanceField;
+      if (poiType === 'train_station') {
+        distanceField = 'distance_trainstation'; // No underscore between train and station
+      } else if (poiType === 'minigolf_course') {
+        distanceField = 'distance_minigolf'; // Remove _course
+      } else {
+        distanceField = 'distance_' + poiType; // Keep as is for other types
+      }
+      
+      console.log(`Filtering by ${distanceField} <= ${maxDistance}km`);
+      
+      // Debug a sample stop
+      if (allBusStops.length > 0) {
+        console.log(`Sample stop ${allBusStops[0].name}: ${distanceField} = ${allBusStops[0][distanceField]}`);
+      }
+      
+      filteredBusStops = allBusStops.filter(stop => {
+        // Include stops that have a distance value (including 0) and it's less than or equal to maxDistance
+        return (stop[distanceField] == maxDistance);
+      });
+      
+      loadBusStops(true);
+      
+      const filterInfoElement = document.getElementById('filteredCountInfo');
+      filterInfoElement.textContent = `Showing ${filteredBusStops.length} of ${allBusStops.length} stops`;
+      filterInfoElement.classList.add('filter-active');
+    }
+    
+    // Event listeners for controls
+    document.getElementById('busStopsToggle').addEventListener('change', function(e) {
+      if (e.target.checked) {
+        map.addLayer(busStopLayer);
+      } else {
+        map.removeLayer(busStopLayer);
+      }
+    });
+    
+    // Boundary radio buttons
+    document.querySelectorAll('input[name="boundaryType"]').forEach(radio => {
+      radio.addEventListener('change', function(e) {
+        const boundaryType = e.target.value;
+        
+        // Clear current boundary layer
+        boundaryLayer.clearLayers();
+        
+        if (boundaryType !== 'none') {
+          // Load and display new boundaries
+          fetch(`/boundaries/${boundaryType}.json`)
+            .then(res => res.json())
+            .then(geojson => {
+              boundaryLayer = L.geoJSON(geojson, {
+                style: function(feature) {
+                  return getStyleForBoundary(feature.properties.type);
+                },
+                onEachFeature: function(feature, layer) {
+                  layer.bindTooltip(feature.properties.name);
+                }
+              }).addTo(map);
+            });
+        }
+      });
+    });
+    
+    // POI controls
+    document.getElementById('poiToggle').addEventListener('change', function(e) {
+      if (e.target.checked) {
+        const poiType = document.getElementById('poiTypeFilter').value;
+        loadPOIs(poiType);
+        map.addLayer(poiLayer);
+      } else {
+        map.removeLayer(poiLayer);
+      }
+    });
+    
+    document.getElementById('poiTypeFilter').addEventListener('change', function(e) {
+      if (document.getElementById('poiToggle').checked) {
+        loadPOIs(e.target.value);
+      }
+    });
+    
+    // Distance filter controls
+    document.getElementById('distanceFilterToggle').addEventListener('change', function(e) {
+      isDistanceFilterActive = e.target.checked;
+      filterBusStopsByDistance();
+    });
+    
+    document.getElementById('poiDistanceType').addEventListener('change', function() {
+      if (isDistanceFilterActive) {
+        filterBusStopsByDistance();
+      }
+    });
+    
+    document.getElementById('distanceSlider').addEventListener('input', function(e) {
+      document.getElementById('distanceValue').textContent = e.target.value;
+      if (isDistanceFilterActive) {
+        filterBusStopsByDistance();
+      }
+    });
+  </script>
+</body>
+</html>
