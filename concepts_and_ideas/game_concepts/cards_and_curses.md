@@ -27,10 +27,8 @@ Types of Power Ups:
 * Veto (Amount: 4): When the Seekers ask a question, you can refuse to answer it. You will still get the reward cards associated with that question.
 * Duplicate (Amount: 2): You can duplicate another card.
 * Move (Amount: 1): You can move your hiding spot. The seekers get to see your old hiding spot, but cannot move for 30 minutes. In those 30 minutes, you can get to a new hiding spot.
-* Discard 1 Draw 2 (Amount: 4): Discard 1 card from your deck and draw 2 new ones.
-* Discard 2 Draw 3 (Amount: 4): Discard 2 card from your deck and draw 3 new ones.
-* Draw 1 Expand 1 (Amount: 2): Draw 1 card from your deck and expand your deck by 1. Can be stacked by duplicating or drawing multiple.
-
+* Discard 1 Draw 2 (Amount: 5): Discard 1 card from your deck and draw 2 new ones.
+* Discard 2 Draw 3 (Amount: 5): Discard 2 card from your deck and draw 3 new ones.
 
 
 ## Curses

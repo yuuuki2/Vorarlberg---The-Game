@@ -56,3 +56,21 @@
 
 # 07-06-2025 - 09-06-2025
 * Finished on Read Only Database
+
+
+
+# 11-06-2025
+* Commited Read Only DB
+* Worked on Rest API
+
+
+
+# 13-06-2025
+* Worked on additional Read-Only Databases
+* Worked on Rest API
+
+
+
+# 14-06-2025
+* Worked on additional Read-Only Databases
+* Worked on Rest API

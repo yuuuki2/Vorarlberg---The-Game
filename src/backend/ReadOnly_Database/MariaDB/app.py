@@ -4,31 +4,50 @@
 #Prompt 2: please add a way of visualising the boundaries in the app.py. There should be an option to switch between vorarlberg, bezirk, and gemeinde boundaries, and to toggle bus station visibility
 #Prompt 3: now add support in app.py for displaying PoI. they should be toggleable like bus stops. they should all have different collors to bus stops and each other. when hovering, they should display name and type
 #Prompt 4: Add a slider and a selector where i can select to only display stops within x kilometers of a mountain/train station etc. Should also be toggleable to display all bus stops like regular
+#Prompt 5: Convert this entire File to use MariaDB. the user is vtg_data, with password vtg_data.
 
 from flask import Flask, jsonify, send_from_directory
-import sqlite3
+import mysql.connector  # Changed from sqlite3 to mysql.connector
 import os
 import pickle
 from shapely.geometry import mapping
 
 app = Flask(__name__, static_folder='.')
 
-DB_PATH = os.path.join(os.path.dirname(__file__), 'bus_stops.db')
+# MariaDB connection parameters
+DB_CONFIG = {
+    'user': 'vtg_server',
+    'password': 'vtg_server',
+    'host': 'localhost',
+    'database': 'vtg_data'
+}
+
+def get_db_connection():
+    """Create and return a connection to the MariaDB database"""
+    try:
+        conn = mysql.connector.connect(**DB_CONFIG)
+        return conn
+    except mysql.connector.Error as err:
+        print(f"Error connecting to MariaDB: {err}")
+        return None
 
 @app.route('/stops.json')
 def get_stops():
-    conn = sqlite3.connect(DB_PATH)
+    conn = get_db_connection()
+    if not conn:
+        return jsonify({"error": "Database connection failed"}), 500
+        
     cursor = conn.cursor()
+    # GROUP_CONCAT is supported in MariaDB with SEPARATOR
     cursor.execute("""
         SELECT 
             s.name, s.lat, s.lon, s.bezirk, s.gemeinde, s.altitude,
             s.distance_trainstation, s.distance_mountain, s.distance_minigolf, s.distance_museum,
-            GROUP_CONCAT(r.name, ', ') AS routes
-        FROM stops s
-        LEFT JOIN stops_routes sr ON s.id = sr.stop_id
-        LEFT JOIN routes r ON sr.route_id = r.id
+            GROUP_CONCAT(r.name SEPARATOR ', ') AS routes
+        FROM ro_stops s
+        LEFT JOIN ro_stops_routes sr ON s.id = sr.stop_id
+        LEFT JOIN ro_routes r ON sr.route_id = r.id
         GROUP BY s.id
-        
     """)
     rows = cursor.fetchall()
     conn.close()
@@ -55,12 +74,16 @@ def get_boundaries(boundary_type):
     if boundary_type not in ['bundesland', 'bezirk', 'gemeinde']:
         return jsonify({"error": "Invalid boundary type"}), 400
     
-    conn = sqlite3.connect(DB_PATH)
+    conn = get_db_connection()
+    if not conn:
+        return jsonify({"error": "Database connection failed"}), 500
+        
     cursor = conn.cursor()
+    # MariaDB uses %s as placeholder
     cursor.execute("""
         SELECT name, shape_data
-        FROM boundaries
-        WHERE type = ?
+        FROM ro_boundaries
+        WHERE type = %s
     """, (boundary_type,))
     
     features = []
@@ -92,12 +115,15 @@ def serve_index():
 
 @app.route('/poi.json')
 def get_poi():
-    conn = sqlite3.connect(DB_PATH)
+    conn = get_db_connection()
+    if not conn:
+        return jsonify({"error": "Database connection failed"}), 500
+        
     cursor = conn.cursor()
     cursor.execute("""
         SELECT 
             id, name, lat, lon, type
-        FROM points_of_interest
+        FROM ro_points_of_interest
     """)
     rows = cursor.fetchall()
     conn.close()
@@ -113,8 +139,6 @@ def get_poi():
         for poi_id, name, lat, lon, poi_type in rows
     ]
     return jsonify(poi)
-
-
 
 if __name__ == '__main__':
     app.run(debug=True, port=6969)
