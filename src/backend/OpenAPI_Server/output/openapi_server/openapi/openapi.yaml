@@ -1,0 +1,634 @@
+openapi: 3.0.0
+info:
+  description: API for managing the Vorarlberg - The Game
+  title: Vorarlberg - The Game API
+  version: 1.0.0
+servers:
+- url: /api/v1
+paths:
+  /bus/routes:
+    get:
+      operationId: bus_routes_get
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/_bus_routes_get_200_response_inner'
+                type: array
+          description: List of all bus routes
+      summary: Get all bus routes
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /bus/stops:
+    get:
+      operationId: bus_stops_get
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/_bus_stops_get_200_response_inner'
+                type: array
+          description: List of all bus stops that have not been marked off
+      summary: Get all bus stops
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /bus/stops/in-range:
+    get:
+      operationId: bus_stops_in_range_get
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/_bus_stops_get_200_response_inner'
+                type: array
+          description: List of bus stops within 400 meters
+      summary: Get bus stops in range
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /cards:
+    get:
+      operationId: cards_get
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/_cards_get_200_response_inner'
+                type: array
+          description: List of cards in hand
+      summary: Get card hand info
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /cards/{cardId}/discard:
+    post:
+      operationId: cards_card_id_discard_post
+      parameters:
+      - explode: false
+        in: path
+        name: cardId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Card discarded successfully
+      summary: Discard a card
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /cards/{cardId}/use:
+    post:
+      operationId: cards_card_id_use_post
+      parameters:
+      - explode: false
+        in: path
+        name: cardId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Card used successfully
+      summary: Use a card
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /curses:
+    get:
+      operationId: curses_get
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/_curses_get_200_response_inner'
+                type: array
+          description: List of current curses
+      summary: Get current curses info
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /curses/{curseId}/complete:
+    post:
+      operationId: curses_curse_id_complete_post
+      parameters:
+      - explode: false
+        in: path
+        name: curseId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Curse completed successfully
+      summary: Complete a curse
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /exists:
+    get:
+      description: Test method for the client to see if the server exists. Should
+        always send 200 Success.
+      operationId: exists_get
+      responses:
+        "200":
+          description: Server exists
+      summary: Check if server exists
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /game/end:
+    post:
+      operationId: game_end_post
+      responses:
+        "200":
+          description: Game ended successfully
+      summary: End game
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /game/info:
+    get:
+      operationId: game_info_get
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_game_info_get_200_response'
+          description: Game information
+      summary: Get game info
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /game/start:
+    post:
+      operationId: game_start_post
+      responses:
+        "200":
+          description: Game started successfully
+      summary: Start game
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /game/swap-roles:
+    post:
+      operationId: game_swap_roles_post
+      responses:
+        "200":
+          description: Roles swapped successfully
+      summary: Swap hider and seeker
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /hider/bus-stop/{busStopId}:
+    post:
+      operationId: hider_bus_stop_bus_stop_id_post
+      parameters:
+      - explode: false
+        in: path
+        name: busStopId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Hiding bus stop set successfully
+      summary: Set hiding bus stop
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /hider/get_coordinates:
+    get:
+      operationId: hider_get_coordinates_get
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_seeker_get_coordinates_get_200_response'
+          description: Hider coordinates
+      summary: Get coordinates of hider
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /hider/info:
+    get:
+      operationId: hider_info_get
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_hider_info_get_200_response'
+          description: Hider information
+      summary: Get hider info
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /hider/post_coordinates:
+    post:
+      operationId: hider_post_coordinates_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_seeker_post_coordinates__post_request'
+        required: true
+      responses:
+        "200":
+          description: Coordinates updated successfully
+      summary: Post coordinates of hider
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /questions:
+    get:
+      operationId: questions_get
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/_questions_get_200_response_inner'
+                type: array
+          description: List of all questions
+      summary: Get all questions
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /questions/answer:
+    post:
+      operationId: questions_answer_post
+      responses:
+        "200":
+          description: Question answered successfully
+      summary: Answer current question
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /questions/ask/{questionId}:
+    post:
+      operationId: questions_ask_question_id_post
+      parameters:
+      - explode: false
+        in: path
+        name: questionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Question asked successfully
+      summary: Ask a question
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /questions/current:
+    get:
+      operationId: questions_current_get
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_questions_current_get_200_response'
+          description: Current question info
+      summary: Get currently asked question info
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /questions/previous:
+    get:
+      operationId: questions_previous_get
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/_questions_previous_get_200_response_inner'
+                type: array
+          description: List of previously asked questions
+      summary: Get previously asked questions info
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /questions/veto:
+    post:
+      operationId: questions_veto_post
+      responses:
+        "200":
+          description: Question vetoed successfully
+      summary: Veto current question
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /seeker/get_coordinates:
+    get:
+      operationId: seeker_get_coordinates_get
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_seeker_get_coordinates_get_200_response'
+          description: Seeker coordinates
+      summary: Get coordinates of seeker
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /seeker/info:
+    get:
+      operationId: seeker_info_get
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_seeker_info_get_200_response'
+          description: Seeker information
+      summary: Get seeker info
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /seeker/post_coordinates/:
+    post:
+      operationId: seeker_post_coordinates_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_seeker_post_coordinates__post_request'
+        required: true
+      responses:
+        "200":
+          description: Coordinates updated successfully
+      summary: Post coordinates of seeker
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+components:
+  schemas:
+    _seeker_get_coordinates_get_200_response:
+      example:
+        lon: 6.0274563
+        lat: 0.8008282
+      properties:
+        lat:
+          format: float
+          title: lat
+          type: number
+        lon:
+          format: float
+          title: lon
+          type: number
+      title: _seeker_get_coordinates_get_200_response
+      type: object
+    _curses_get_200_response_inner:
+      example:
+        curseId: curseId
+        name: name
+        description: description
+      properties:
+        curseId:
+          title: curseId
+          type: string
+        name:
+          title: name
+          type: string
+        description:
+          title: description
+          type: string
+      title: _curses_get_200_response_inner
+      type: object
+    _seeker_post_coordinates__post_request:
+      properties:
+        lat:
+          format: float
+          title: lat
+          type: number
+        lon:
+          format: float
+          title: lon
+          type: number
+      required:
+      - lat
+      - lon
+      title: _seeker_post_coordinates__post_request
+      type: object
+    _questions_previous_get_200_response_inner:
+      example:
+        questionId: questionId
+        answer: answer
+        name: name
+        description: description
+      properties:
+        questionId:
+          title: questionId
+          type: string
+        name:
+          title: name
+          type: string
+        description:
+          title: description
+          type: string
+        answer:
+          title: answer
+          type: string
+      title: _questions_previous_get_200_response_inner
+      type: object
+    _bus_routes_get_200_response_inner:
+      example:
+        routeId: routeId
+        routeName: routeName
+      properties:
+        routeId:
+          title: routeId
+          type: string
+        routeName:
+          title: routeName
+          type: string
+      title: _bus_routes_get_200_response_inner
+      type: object
+    _cards_get_200_response_inner:
+      example:
+        cardId: cardId
+        name: name
+        description: description
+        type: type
+      properties:
+        cardId:
+          title: cardId
+          type: string
+        name:
+          title: name
+          type: string
+        description:
+          title: description
+          type: string
+        type:
+          title: type
+          type: string
+      title: _cards_get_200_response_inner
+      type: object
+    _hider_info_get_200_response:
+      example:
+        busStationLat: 1.4658129
+        distanceToNearestMountain: 7.0614014
+        busStationAltitude: 5.637377
+        distanceToNearestTrainStation: 2.302136
+        lon: 6.0274563
+        busStationName: busStationName
+        distanceToNearestMinigolf: 9.301444
+        busStationBezirk: busStationBezirk
+        distanceToNearestMuseum: 3.6160767
+        lat: 0.8008282
+        busStationLon: 5.962134
+        busStationGemeinde: busStationGemeinde
+      properties:
+        lat:
+          format: float
+          title: lat
+          type: number
+        lon:
+          format: float
+          title: lon
+          type: number
+        busStationName:
+          title: busStationName
+          type: string
+        busStationLat:
+          format: float
+          title: busStationLat
+          type: number
+        busStationLon:
+          format: float
+          title: busStationLon
+          type: number
+        busStationAltitude:
+          format: float
+          title: busStationAltitude
+          type: number
+        busStationBezirk:
+          title: busStationBezirk
+          type: string
+        busStationGemeinde:
+          title: busStationGemeinde
+          type: string
+        distanceToNearestTrainStation:
+          format: float
+          title: distanceToNearestTrainStation
+          type: number
+        distanceToNearestMountain:
+          format: float
+          title: distanceToNearestMountain
+          type: number
+        distanceToNearestMinigolf:
+          format: float
+          title: distanceToNearestMinigolf
+          type: number
+        distanceToNearestMuseum:
+          format: float
+          title: distanceToNearestMuseum
+          type: number
+      title: _hider_info_get_200_response
+      type: object
+    _questions_current_get_200_response:
+      example:
+        questionId: questionId
+        name: name
+        description: description
+        timeLeft: 0
+      properties:
+        questionId:
+          title: questionId
+          type: string
+        name:
+          title: name
+          type: string
+        description:
+          title: description
+          type: string
+        timeLeft:
+          description: Time left in seconds
+          title: timeLeft
+          type: integer
+      title: _questions_current_get_200_response
+      type: object
+    _questions_get_200_response_inner:
+      example:
+        alreadyAsked: true
+        name: name
+        description: description
+        id: id
+      properties:
+        id:
+          title: id
+          type: string
+        name:
+          title: name
+          type: string
+        description:
+          title: description
+          type: string
+        alreadyAsked:
+          title: alreadyAsked
+          type: boolean
+      title: _questions_get_200_response_inner
+      type: object
+    _game_info_get_200_response:
+      example:
+        seekerName: seekerName
+        currentGameTimer: 0
+        hiderName: hiderName
+      properties:
+        currentGameTimer:
+          description: Current game time in seconds
+          title: currentGameTimer
+          type: integer
+        hiderName:
+          title: hiderName
+          type: string
+        seekerName:
+          title: seekerName
+          type: string
+      title: _game_info_get_200_response
+      type: object
+    _seeker_info_get_200_response:
+      example:
+        altitude: 1.4658129
+        gemeinde: gemeinde
+        distanceToNearestMountain: 5.637377
+        bezirk: bezirk
+        distanceToNearestTrainStation: 5.962134
+        lon: 6.0274563
+        distanceToNearestMinigolf: 2.302136
+        distanceToNearestMuseum: 7.0614014
+        lat: 0.8008282
+      properties:
+        lat:
+          format: float
+          title: lat
+          type: number
+        lon:
+          format: float
+          title: lon
+          type: number
+        altitude:
+          format: float
+          title: altitude
+          type: number
+        bezirk:
+          title: bezirk
+          type: string
+        gemeinde:
+          title: gemeinde
+          type: string
+        distanceToNearestTrainStation:
+          format: float
+          title: distanceToNearestTrainStation
+          type: number
+        distanceToNearestMountain:
+          format: float
+          title: distanceToNearestMountain
+          type: number
+        distanceToNearestMinigolf:
+          format: float
+          title: distanceToNearestMinigolf
+          type: number
+        distanceToNearestMuseum:
+          format: float
+          title: distanceToNearestMuseum
+          type: number
+      title: _seeker_info_get_200_response
+      type: object
+    _bus_stops_get_200_response_inner:
+      example:
+        busStopName: busStopName
+        busStopLon: 6.0274563
+        busStopId: busStopId
+        busStopLat: 0.8008282
+      properties:
+        busStopId:
+          title: busStopId
+          type: string
+        busStopName:
+          title: busStopName
+          type: string
+        busStopLat:
+          format: float
+          title: busStopLat
+          type: number
+        busStopLon:
+          format: float
+          title: busStopLon
+          type: number
+      title: _bus_stops_get_200_response_inner
+      type: object

@@ -74,3 +74,4 @@
 # 14-06-2025
 * Worked on additional Read-Only Databases
 * Worked on Rest API
+* Generated Flask Server

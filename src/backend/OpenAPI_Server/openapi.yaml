@@ -1,0 +1,471 @@
+openapi: 3.0.0
+info:
+  title: Vorarlberg - The Game API
+  description: API for managing the Vorarlberg - The Game
+  version: 1.0.0
+servers:
+  - url: /api/v1
+paths:
+  /seeker/post_coordinates/:
+    post:
+      summary: Post coordinates of seeker
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                lat:
+                  type: number
+                  format: float
+                lon:
+                  type: number
+                  format: float
+              required:
+                - lat
+                - lon
+      responses:
+        '200':
+          description: Coordinates updated successfully
+  
+  /hider/post_coordinates:
+    post:
+      summary: Post coordinates of hider
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                lat:
+                  type: number
+                  format: float
+                lon:
+                  type: number
+                  format: float
+              required:
+                - lat
+                - lon
+      responses:
+        '200':
+          description: Coordinates updated successfully
+  
+  /seeker/get_coordinates:
+    get:
+      summary: Get coordinates of seeker
+      responses:
+        '200':
+          description: Seeker coordinates
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  lat:
+                    type: number
+                    format: float
+                  lon:
+                    type: number
+                    format: float
+  
+  /hider/get_coordinates:
+    get:
+      summary: Get coordinates of hider
+      responses:
+        '200':
+          description: Hider coordinates
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  lat:
+                    type: number
+                    format: float
+                  lon:
+                    type: number
+                    format: float
+  
+  /questions/ask/{questionId}:
+    post:
+      summary: Ask a question
+      parameters:
+        - name: questionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Question asked successfully
+  
+  /questions/answer:
+    post:
+      summary: Answer current question
+      responses:
+        '200':
+          description: Question answered successfully
+  
+  /questions/veto:
+    post:
+      summary: Veto current question
+      responses:
+        '200':
+          description: Question vetoed successfully
+  
+  /curses:
+    get:
+      summary: Get current curses info
+      responses:
+        '200':
+          description: List of current curses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    curseId:
+                      type: string
+                    name:
+                      type: string
+                    description:
+                      type: string
+  
+  /questions/current:
+    get:
+      summary: Get currently asked question info
+      responses:
+        '200':
+          description: Current question info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  questionId:
+                    type: string
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  timeLeft:
+                    type: integer
+                    description: Time left in seconds
+  
+  /questions/previous:
+    get:
+      summary: Get previously asked questions info
+      responses:
+        '200':
+          description: List of previously asked questions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    questionId:
+                      type: string
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    answer:
+                      type: string
+  
+  /questions:
+    get:
+      summary: Get all questions
+      responses:
+        '200':
+          description: List of all questions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    alreadyAsked:
+                      type: boolean
+  
+  /curses/{curseId}/complete:
+    post:
+      summary: Complete a curse
+      parameters:
+        - name: curseId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Curse completed successfully
+  
+  /cards:
+    get:
+      summary: Get card hand info
+      responses:
+        '200':
+          description: List of cards in hand
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    cardId:
+                      type: string
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    type:
+                      type: string
+  
+  /cards/{cardId}/discard:
+    post:
+      summary: Discard a card
+      parameters:
+        - name: cardId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Card discarded successfully
+  
+  /cards/{cardId}/use:
+    post:
+      summary: Use a card
+      parameters:
+        - name: cardId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Card used successfully
+  
+  /game/swap-roles:
+    post:
+      summary: Swap hider and seeker
+      responses:
+        '200':
+          description: Roles swapped successfully
+  
+  /game/start:
+    post:
+      summary: Start game
+      responses:
+        '200':
+          description: Game started successfully
+  
+  /game/end:
+    post:
+      summary: End game
+      responses:
+        '200':
+          description: Game ended successfully
+  
+  /game/info:
+    get:
+      summary: Get game info
+      responses:
+        '200':
+          description: Game information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  currentGameTimer:
+                    type: integer
+                    description: Current game time in seconds
+                  hiderName:
+                    type: string
+                  seekerName:
+                    type: string
+  
+  /hider/info:
+    get:
+      summary: Get hider info
+      responses:
+        '200':
+          description: Hider information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  lat:
+                    type: number
+                    format: float
+                  lon:
+                    type: number
+                    format: float
+                  busStationName:
+                    type: string
+                  busStationLat:
+                    type: number
+                    format: float
+                  busStationLon:
+                    type: number
+                    format: float
+                  busStationAltitude:
+                    type: number
+                    format: float
+                  busStationBezirk:
+                    type: string
+                  busStationGemeinde:
+                    type: string
+                  distanceToNearestTrainStation:
+                    type: number
+                    format: float
+                  distanceToNearestMountain:
+                    type: number
+                    format: float
+                  distanceToNearestMinigolf:
+                    type: number
+                    format: float
+                  distanceToNearestMuseum:
+                    type: number
+                    format: float
+  
+  /seeker/info:
+    get:
+      summary: Get seeker info
+      responses:
+        '200':
+          description: Seeker information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  lat:
+                    type: number
+                    format: float
+                  lon:
+                    type: number
+                    format: float
+                  altitude:
+                    type: number
+                    format: float
+                  bezirk:
+                    type: string
+                  gemeinde:
+                    type: string
+                  distanceToNearestTrainStation:
+                    type: number
+                    format: float
+                  distanceToNearestMountain:
+                    type: number
+                    format: float
+                  distanceToNearestMinigolf:
+                    type: number
+                    format: float
+                  distanceToNearestMuseum:
+                    type: number
+                    format: float
+  
+  /bus/routes:
+    get:
+      summary: Get all bus routes
+      responses:
+        '200':
+          description: List of all bus routes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    routeId:
+                      type: string
+                    routeName:
+                      type: string
+  
+  /hider/bus-stop/{busStopId}:
+    post:
+      summary: Set hiding bus stop
+      parameters:
+        - name: busStopId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Hiding bus stop set successfully
+  
+  /bus/stops:
+    get:
+      summary: Get all bus stops
+      responses:
+        '200':
+          description: List of all bus stops that have not been marked off
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    busStopId:
+                      type: string
+                    busStopName:
+                      type: string
+                    busStopLat:
+                      type: number
+                      format: float
+                    busStopLon:
+                      type: number
+                      format: float
+  
+  /bus/stops/in-range:
+    get:
+      summary: Get bus stops in range
+      responses:
+        '200':
+          description: List of bus stops within 400 meters
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    busStopId:
+                      type: string
+                    busStopName:
+                      type: string
+                    busStopLat:
+                      type: number
+                      format: float
+                    busStopLon:
+                      type: number
+                      format: float
+  
+  /exists:
+    get:
+      summary: Check if server exists
+      description: Test method for the client to see if the server exists. Should always send 200 Success.
+      responses:
+        '200':
+          description: Server exists
