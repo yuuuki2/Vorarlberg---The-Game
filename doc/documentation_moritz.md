@@ -75,3 +75,11 @@
 * Worked on additional Read-Only Databases
 * Worked on Rest API
 * Generated Flask Server
+
+
+
+# 15-06-2025
+* Added more tables
+* Adjusted user privileges
+* Added Unit tests to DB Creation
+* Coded Rest API Server

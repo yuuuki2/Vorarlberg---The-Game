@@ -1,324 +1,788 @@
 import connexion
-from typing import Dict
-from typing import Tuple
-from typing import Union
+import mysql.connector
+import time
+import json
+import math
+from typing import Dict, List, Tuple, Union
+from math import radians, cos, sin, asin, sqrt
 
-from openapi_server.models.bus_routes_get200_response_inner import BusRoutesGet200ResponseInner  # noqa: E501
-from openapi_server.models.bus_stops_get200_response_inner import BusStopsGet200ResponseInner  # noqa: E501
-from openapi_server.models.cards_get200_response_inner import CardsGet200ResponseInner  # noqa: E501
-from openapi_server.models.curses_get200_response_inner import CursesGet200ResponseInner  # noqa: E501
-from openapi_server.models.game_info_get200_response import GameInfoGet200Response  # noqa: E501
-from openapi_server.models.hider_info_get200_response import HiderInfoGet200Response  # noqa: E501
-from openapi_server.models.questions_current_get200_response import QuestionsCurrentGet200Response  # noqa: E501
-from openapi_server.models.questions_get200_response_inner import QuestionsGet200ResponseInner  # noqa: E501
-from openapi_server.models.questions_previous_get200_response_inner import QuestionsPreviousGet200ResponseInner  # noqa: E501
-from openapi_server.models.seeker_get_coordinates_get200_response import SeekerGetCoordinatesGet200Response  # noqa: E501
-from openapi_server.models.seeker_info_get200_response import SeekerInfoGet200Response  # noqa: E501
-from openapi_server.models.seeker_post_coordinates_post_request import SeekerPostCoordinatesPostRequest  # noqa: E501
+from openapi_server.models.bus_routes_get200_response_inner import BusRoutesGet200ResponseInner
+from openapi_server.models.bus_stops_get200_response_inner import BusStopsGet200ResponseInner
+from openapi_server.models.cards_get200_response_inner import CardsGet200ResponseInner
+from openapi_server.models.curses_get200_response_inner import CursesGet200ResponseInner
+from openapi_server.models.game_info_get200_response import GameInfoGet200Response
+from openapi_server.models.hider_info_get200_response import HiderInfoGet200Response
+from openapi_server.models.questions_current_get200_response import QuestionsCurrentGet200Response
+from openapi_server.models.questions_get200_response_inner import QuestionsGet200ResponseInner
+from openapi_server.models.questions_previous_get200_response_inner import QuestionsPreviousGet200ResponseInner
+from openapi_server.models.seeker_get_coordinates_get200_response import SeekerGetCoordinatesGet200Response
+from openapi_server.models.seeker_info_get200_response import SeekerInfoGet200Response
+from openapi_server.models.seeker_post_coordinates_post_request import SeekerPostCoordinatesPostRequest
 from openapi_server import util
 
-
-def bus_routes_get():  # noqa: E501
-    """Get all bus routes
-
-     # noqa: E501
-
-
-    :rtype: Union[List[BusRoutesGet200ResponseInner], Tuple[List[BusRoutesGet200ResponseInner], int], Tuple[List[BusRoutesGet200ResponseInner], int, Dict[str, str]]
-    """
-    return 'do some magic!'
-
-
-def bus_stops_get():  # noqa: E501
-    """Get all bus stops
-
-     # noqa: E501
-
-
-    :rtype: Union[List[BusStopsGet200ResponseInner], Tuple[List[BusStopsGet200ResponseInner], int], Tuple[List[BusStopsGet200ResponseInner], int, Dict[str, str]]
-    """
-    return 'do some magic!'
-
-
-def bus_stops_in_range_get():  # noqa: E501
-    """Get bus stops in range
-
-     # noqa: E501
-
-
-    :rtype: Union[List[BusStopsGet200ResponseInner], Tuple[List[BusStopsGet200ResponseInner], int], Tuple[List[BusStopsGet200ResponseInner], int, Dict[str, str]]
-    """
-    return 'do some magic!'
-
-
-def cards_card_id_discard_post(card_id):  # noqa: E501
-    """Discard a card
-
-     # noqa: E501
-
-    :param card_id: 
-    :type card_id: str
-
-    :rtype: Union[None, Tuple[None, int], Tuple[None, int, Dict[str, str]]
-    """
-    return 'do some magic!'
-
-
-def cards_card_id_use_post(card_id):  # noqa: E501
-    """Use a card
-
-     # noqa: E501
-
-    :param card_id: 
-    :type card_id: str
-
-    :rtype: Union[None, Tuple[None, int], Tuple[None, int, Dict[str, str]]
-    """
-    return 'do some magic!'
-
-
-def cards_get():  # noqa: E501
-    """Get card hand info
-
-     # noqa: E501
-
-
-    :rtype: Union[List[CardsGet200ResponseInner], Tuple[List[CardsGet200ResponseInner], int], Tuple[List[CardsGet200ResponseInner], int, Dict[str, str]]
-    """
-    return 'do some magic!'
-
-
-def curses_curse_id_complete_post(curse_id):  # noqa: E501
-    """Complete a curse
-
-     # noqa: E501
-
-    :param curse_id: 
-    :type curse_id: str
-
-    :rtype: Union[None, Tuple[None, int], Tuple[None, int, Dict[str, str]]
-    """
-    return 'do some magic!'
-
-
-def curses_get():  # noqa: E501
-    """Get current curses info
-
-     # noqa: E501
-
-
-    :rtype: Union[List[CursesGet200ResponseInner], Tuple[List[CursesGet200ResponseInner], int], Tuple[List[CursesGet200ResponseInner], int, Dict[str, str]]
-    """
-    return 'do some magic!'
-
-
-def exists_get():  # noqa: E501
-    """Check if server exists
-
-    Test method for the client to see if the server exists. Should always send 200 Success. # noqa: E501
-
-
-    :rtype: Union[None, Tuple[None, int], Tuple[None, int, Dict[str, str]]
-    """
-    return 'do some magic!'
-
-
-def game_end_post():  # noqa: E501
-    """End game
-
-     # noqa: E501
-
-
-    :rtype: Union[None, Tuple[None, int], Tuple[None, int, Dict[str, str]]
-    """
-    return 'do some magic!'
-
-
-def game_info_get():  # noqa: E501
-    """Get game info
-
-     # noqa: E501
-
-
-    :rtype: Union[GameInfoGet200Response, Tuple[GameInfoGet200Response, int], Tuple[GameInfoGet200Response, int, Dict[str, str]]
-    """
-    return 'do some magic!'
-
-
-def game_start_post():  # noqa: E501
-    """Start game
-
-     # noqa: E501
-
-
-    :rtype: Union[None, Tuple[None, int], Tuple[None, int, Dict[str, str]]
-    """
-    return 'do some magic!'
-
-
-def game_swap_roles_post():  # noqa: E501
-    """Swap hider and seeker
-
-     # noqa: E501
-
-
-    :rtype: Union[None, Tuple[None, int], Tuple[None, int, Dict[str, str]]
-    """
-    return 'do some magic!'
-
-
-def hider_bus_stop_bus_stop_id_post(bus_stop_id):  # noqa: E501
-    """Set hiding bus stop
-
-     # noqa: E501
-
-    :param bus_stop_id: 
-    :type bus_stop_id: str
-
-    :rtype: Union[None, Tuple[None, int], Tuple[None, int, Dict[str, str]]
-    """
-    return 'do some magic!'
-
-
-def hider_get_coordinates_get():  # noqa: E501
-    """Get coordinates of hider
-
-     # noqa: E501
-
-
-    :rtype: Union[SeekerGetCoordinatesGet200Response, Tuple[SeekerGetCoordinatesGet200Response, int], Tuple[SeekerGetCoordinatesGet200Response, int, Dict[str, str]]
-    """
-    return 'do some magic!'
-
-
-def hider_info_get():  # noqa: E501
-    """Get hider info
-
-     # noqa: E501
-
-
-    :rtype: Union[HiderInfoGet200Response, Tuple[HiderInfoGet200Response, int], Tuple[HiderInfoGet200Response, int, Dict[str, str]]
-    """
-    return 'do some magic!'
-
-
-def hider_post_coordinates_post(body):  # noqa: E501
-    """Post coordinates of hider
-
-     # noqa: E501
-
-    :param seeker_post_coordinates_post_request: 
-    :type seeker_post_coordinates_post_request: dict | bytes
-
-    :rtype: Union[None, Tuple[None, int], Tuple[None, int, Dict[str, str]]
-    """
-    seeker_post_coordinates_post_request = body
-    if connexion.request.is_json:
-        seeker_post_coordinates_post_request = SeekerPostCoordinatesPostRequest.from_dict(connexion.request.get_json())  # noqa: E501
-    return 'do some magic!'
-
-
-def questions_answer_post():  # noqa: E501
-    """Answer current question
-
-     # noqa: E501
-
-
-    :rtype: Union[None, Tuple[None, int], Tuple[None, int, Dict[str, str]]
-    """
-    return 'do some magic!'
-
-
-def questions_ask_question_id_post(question_id):  # noqa: E501
-    """Ask a question
-
-     # noqa: E501
-
-    :param question_id: 
-    :type question_id: str
-
-    :rtype: Union[None, Tuple[None, int], Tuple[None, int, Dict[str, str]]
-    """
-    return 'do some magic!'
-
-
-def questions_current_get():  # noqa: E501
-    """Get currently asked question info
-
-     # noqa: E501
-
-
-    :rtype: Union[QuestionsCurrentGet200Response, Tuple[QuestionsCurrentGet200Response, int], Tuple[QuestionsCurrentGet200Response, int, Dict[str, str]]
-    """
-    return 'do some magic!'
-
-
-def questions_get():  # noqa: E501
-    """Get all questions
-
-     # noqa: E501
-
-
-    :rtype: Union[List[QuestionsGet200ResponseInner], Tuple[List[QuestionsGet200ResponseInner], int], Tuple[List[QuestionsGet200ResponseInner], int, Dict[str, str]]
-    """
-    return 'do some magic!'
-
-
-def questions_previous_get():  # noqa: E501
-    """Get previously asked questions info
-
-     # noqa: E501
-
-
-    :rtype: Union[List[QuestionsPreviousGet200ResponseInner], Tuple[List[QuestionsPreviousGet200ResponseInner], int], Tuple[List[QuestionsPreviousGet200ResponseInner], int, Dict[str, str]]
-    """
-    return 'do some magic!'
-
-
-def questions_veto_post():  # noqa: E501
-    """Veto current question
-
-     # noqa: E501
-
-
-    :rtype: Union[None, Tuple[None, int], Tuple[None, int, Dict[str, str]]
-    """
-    return 'do some magic!'
-
-
-def seeker_get_coordinates_get():  # noqa: E501
-    """Get coordinates of seeker
-
-     # noqa: E501
-
-
-    :rtype: Union[SeekerGetCoordinatesGet200Response, Tuple[SeekerGetCoordinatesGet200Response, int], Tuple[SeekerGetCoordinatesGet200Response, int, Dict[str, str]]
-    """
-    return 'do some magic!'
-
-
-def seeker_info_get():  # noqa: E501
-    """Get seeker info
-
-     # noqa: E501
-
-
-    :rtype: Union[SeekerInfoGet200Response, Tuple[SeekerInfoGet200Response, int], Tuple[SeekerInfoGet200Response, int, Dict[str, str]]
-    """
-    return 'do some magic!'
-
-
-def seeker_post_coordinates_post(body):  # noqa: E501
-    """Post coordinates of seeker
-
-     # noqa: E501
-
-    :param seeker_post_coordinates_post_request: 
-    :type seeker_post_coordinates_post_request: dict | bytes
-
-    :rtype: Union[None, Tuple[None, int], Tuple[None, int, Dict[str, str]]
-    """
-    seeker_post_coordinates_post_request = body
-    if connexion.request.is_json:
-        seeker_post_coordinates_post_request = SeekerPostCoordinatesPostRequest.from_dict(connexion.request.get_json())  # noqa: E501
-    return 'do some magic!'
+# Database configuration
+DB_CONFIG = {
+    'user': 'vtg_server',
+    'password': 'vtg_server',
+    'host': 'localhost',
+    'database': 'vtg_data'
+}
+
+# Global variables for game state
+GAME_STATE = {
+    'is_started': False,
+    'start_time': None,  # Will store Unix timestamp
+    'hider_name': 'Hider',
+    'seeker_name': 'Seeker'
+}
+
+# Global variables for coordinates (Dornbirn coordinates)
+HIDER_INFO = {
+    'lat': 47.4167,  # Dornbirn coordinates
+    'lon': 9.7333,
+    'bus_stop_id': None
+}
+
+SEEKER_INFO = {
+    'lat': 47.4167,  # Dornbirn coordinates
+    'lon': 9.7333
+}
+
+# Utility function to get database connection
+def get_db_connection():
+    try:
+        conn = mysql.connector.connect(**DB_CONFIG)
+        return conn
+    except mysql.connector.Error as err:
+        print(f"Database connection error: {err}")
+        return None
+
+# Utility function to calculate distance between two coordinates
+def haversine_distance(lat1, lon1, lat2, lon2):
+    # Convert latitude and longitude from degrees to radians
+    lat1, lon1, lat2, lon2 = map(radians, [lat1, lon1, lat2, lon2])
+    
+    # Haversine formula
+    dlon = lon2 - lon1
+    dlat = lat2 - lat1
+    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
+    c = 2 * asin(sqrt(a))
+    r = 6371  # Radius of earth in kilometers
+    return c * r * 1000  # Convert to meters
+
+
+def bus_routes_get():
+    """Get all bus routes"""
+    conn = get_db_connection()
+    if not conn:
+        return [], 500
+    
+    try:
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT id, name FROM ro_routes")
+        routes = cursor.fetchall()
+        
+        result = []
+        for route in routes:
+            route_obj = {
+                "routeId": route['id'],
+                "routeName": route['name']
+            }
+            result.append(route_obj)
+        
+        return result
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        return [], 500
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
+
+
+def bus_stops_get():
+    """Get all bus stops"""
+    conn = get_db_connection()
+    if not conn:
+        return [], 500
+    
+    try:
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT id, name, lat, lon FROM ro_stops")
+        stops = cursor.fetchall()
+        
+        result = []
+        for stop in stops:
+            stop_obj = {
+                "busStopId": stop['id'],
+                "busStopName": stop['name'],
+                "busStopLat": stop['lat'],
+                "busStopLon": stop['lon']
+            }
+            result.append(stop_obj)
+        
+        return result
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        return [], 500
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
+
+
+def bus_stops_in_range_get():
+    """Get bus stops in range"""
+    conn = get_db_connection()
+    if not conn:
+        return [], 500
+    
+    try:
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT id, name, lat, lon FROM ro_stops")
+        stops = cursor.fetchall()
+        
+        result = []
+        for stop in stops:
+            # Calculate distance between seeker and this bus stop
+            distance = haversine_distance(
+                SEEKER_INFO['lat'], SEEKER_INFO['lon'],
+                stop['lat'], stop['lon']
+            )
+            
+            # Include stops within 400 meters
+            if distance <= 400:
+                stop_obj = {
+                    "busStopId": stop['id'],
+                    "busStopName": stop['name'],
+                    "busStopLat": stop['lat'],
+                    "busStopLon": stop['lon']
+                }
+                result.append(stop_obj)
+        
+        return result
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        return [], 500
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
+
+
+def cards_card_id_discard_post(card_id):
+    """Discard a card"""
+    conn = get_db_connection()
+    if not conn:
+        return None, 500
+    
+    try:
+        cursor = conn.cursor()
+        # Update card status to 'In Deck'
+        cursor.execute(
+            "UPDATE vtg_cards SET status = 'In Deck' WHERE id = %s AND status = 'In Hand'",
+            (card_id,)
+        )
+        
+        if cursor.rowcount == 0:
+            return None, 404  # Card not found or not in hand
+        
+        conn.commit()
+        return None, 200
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        conn.rollback()
+        return None, 500
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
+
+
+def cards_card_id_use_post(card_id):
+    """Use a card"""
+    conn = get_db_connection()
+    if not conn:
+        return None, 500
+    
+    try:
+        cursor = conn.cursor(dictionary=True)
+        # First, check if the card exists and is in hand
+        cursor.execute(
+            """
+            SELECT c.type FROM vtg_cards vc
+            JOIN ro_cards c ON vc.card_id = c.id
+            WHERE vc.id = %s AND vc.status = 'In Hand'
+            """,
+            (card_id,)
+        )
+        card = cursor.fetchone()
+        
+        if not card:
+            return None, 404  # Card not found or not in hand
+        
+        # Update card status based on its type
+        if card['type'] == 'curse':
+            # For curse cards, add to curses table
+            current_time = int(time.time())  # Unix timestamp
+            cursor.execute(
+                """
+                UPDATE vtg_cards SET status = 'In Effect' WHERE id = %s;
+                INSERT INTO vtg_curses (curse_id, asked_on)
+                VALUES (%s, FROM_UNIXTIME(%s));
+                """,
+                (card_id, card_id, current_time)
+            )
+        else:
+            # For other cards, just update status to 'In Effect'
+            cursor.execute(
+                "UPDATE vtg_cards SET status = 'In Effect' WHERE id = %s",
+                (card_id,)
+            )
+        
+        conn.commit()
+        return None, 200
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        conn.rollback()
+        return None, 500
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
+
+
+def cards_get():
+    """Get card hand info"""
+    conn = get_db_connection()
+    if not conn:
+        return [], 500
+    
+    try:
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute(
+            """
+            SELECT vc.id as cardId, c.name, c.description, c.type
+            FROM vtg_cards vc
+            JOIN ro_cards c ON vc.card_id = c.id
+            WHERE vc.status = 'In Hand'
+            """
+        )
+        cards = cursor.fetchall()
+        
+        result = []
+        for card in cards:
+            card_obj = {
+                "cardId": str(card['cardId']),
+                "name": card['name'],
+                "description": card['description'],
+                "type": card['type']
+            }
+            result.append(card_obj)
+        
+        return result
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        return [], 500
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
+
+
+def curses_curse_id_complete_post(curse_id):
+    """Complete a curse"""
+    conn = get_db_connection()
+    if not conn:
+        return None, 500
+    
+    try:
+        cursor = conn.cursor()
+        # Remove curse from active curses
+        cursor.execute(
+            "DELETE FROM vtg_curses WHERE id = %s",
+            (curse_id,)
+        )
+        
+        if cursor.rowcount == 0:
+            return None, 404  # Curse not found
+        
+        # Update corresponding card status back to 'In Deck'
+        cursor.execute(
+            "UPDATE vtg_cards SET status = 'In Deck' WHERE id = %s",
+            (curse_id,)
+        )
+        
+        conn.commit()
+        return None, 200
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        conn.rollback()
+        return None, 500
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
+
+
+def curses_get():
+    """Get current curses info"""
+    conn = get_db_connection()
+    if not conn:
+        return [], 500
+    
+    try:
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute(
+            """
+            SELECT c.id as curseId, c.name, c.description
+            FROM vtg_curses vc
+            JOIN ro_cards c ON vc.curse_id = c.id
+            """
+        )
+        curses = cursor.fetchall()
+        
+        result = []
+        for curse in curses:
+            curse_obj = {
+                "curseId": str(curse['curseId']),
+                "name": curse['name'],
+                "description": curse['description']
+            }
+            result.append(curse_obj)
+        
+        return result
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        return [], 500
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
+
+
+def exists_get():
+    """Check if server exists"""
+    return None, 200
+
+
+def game_end_post():
+    """End game"""
+    global GAME_STATE
+    
+    GAME_STATE['is_started'] = False
+    GAME_STATE['start_time'] = None
+    
+    conn = get_db_connection()
+    if not conn:
+        return None, 500
+    
+    try:
+        cursor = conn.cursor()
+        # Reset all temporary tables
+        cursor.execute("TRUNCATE TABLE vtg_cards")
+        cursor.execute("TRUNCATE TABLE vtg_curses")
+        cursor.execute("TRUNCATE TABLE vtg_questions")
+        
+        conn.commit()
+        return None, 200
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        conn.rollback()
+        return None, 500
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
+
+
+def game_info_get():
+    """Get game info"""
+    current_time = int(time.time())  # Current Unix timestamp
+    current_game_timer = 0
+    
+    if GAME_STATE['is_started'] and GAME_STATE['start_time']:
+        current_game_timer = current_time - GAME_STATE['start_time']
+    
+    game_info = {
+        "currentGameTimer": current_game_timer,
+        "hiderName": GAME_STATE['hider_name'],
+        "seekerName": GAME_STATE['seeker_name']
+    }
+    
+    return game_info
+
+
+def game_start_post():
+    """Start game"""
+    global GAME_STATE
+    
+    GAME_STATE['is_started'] = True
+    GAME_STATE['start_time'] = int(time.time())  # Unix timestamp
+    
+    conn = get_db_connection()
+    if not conn:
+        return None, 500
+    
+    try:
+        cursor = conn.cursor(dictionary=True)
+        
+        # Initialize card deck - set all cards to 'In Deck'
+        cursor.execute("SELECT id FROM ro_cards")
+        cards = cursor.fetchall()
+        
+        # Clear existing cards
+        cursor.execute("TRUNCATE TABLE vtg_cards")
+        
+        # Add all cards to deck
+        for card in cards:
+            cursor.execute(
+                "INSERT INTO vtg_cards (card_id, status) VALUES (%s, 'In Deck')",
+                (card['id'],)
+            )
+        
+        # Deal initial hand (e.g., 3 cards)
+        cursor.execute(
+            """
+            UPDATE vtg_cards
+            SET status = 'In Hand'
+            WHERE id IN (
+                SELECT id FROM (
+                    SELECT id FROM vtg_cards WHERE status = 'In Deck' LIMIT 3
+                ) as temp
+            )
+            """
+        )
+        
+        # Initialize questions
+        cursor.execute("TRUNCATE TABLE vtg_questions")
+        cursor.execute("SELECT id FROM ro_questions")
+        questions = cursor.fetchall()
+        
+        for question in questions:
+            cursor.execute(
+                "INSERT INTO vtg_questions (question_id, status) VALUES (%s, 'Not Asked')",
+                (question['id'],)
+            )
+        
+        # Clear any existing curses
+        cursor.execute("TRUNCATE TABLE vtg_curses")
+        
+        conn.commit()
+        return None, 200
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        conn.rollback()
+        return None, 500
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
+
+
+def game_swap_roles_post():
+    """Swap hider and seeker"""
+    global GAME_STATE, HIDER_INFO, SEEKER_INFO
+    
+    # Swap player names
+    GAME_STATE['hider_name'], GAME_STATE['seeker_name'] = GAME_STATE['seeker_name'], GAME_STATE['hider_name']
+    
+    # Swap player coordinates
+    hider_temp = HIDER_INFO.copy()
+    HIDER_INFO['lat'] = SEEKER_INFO['lat']
+    HIDER_INFO['lon'] = SEEKER_INFO['lon']
+    HIDER_INFO['bus_stop_id'] = None  # Reset bus stop when swapping
+    
+    SEEKER_INFO['lat'] = hider_temp['lat']
+    SEEKER_INFO['lon'] = hider_temp['lon']
+    
+    return None, 200
+
+
+def hider_bus_stop_bus_stop_id_post(bus_stop_id):
+    """Set hiding bus stop"""
+    global HIDER_INFO
+    
+    conn = get_db_connection()
+    if not conn:
+        return None, 500
+    
+    try:
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute(
+            "SELECT id, lat, lon FROM ro_stops WHERE id = %s",
+            (bus_stop_id,)
+        )
+        bus_stop = cursor.fetchone()
+        
+        if not bus_stop:
+            return None, 404  # Bus stop not found
+        
+        # Update hider's info
+        HIDER_INFO['bus_stop_id'] = bus_stop_id
+        HIDER_INFO['lat'] = bus_stop['lat']
+        HIDER_INFO['lon'] = bus_stop['lon']
+        
+        return None, 200
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        return None, 500
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
+
+
+def hider_get_coordinates_get():
+    """Placeholder"""
+
+
+def hider_info_get():
+    """Placeholder"""
+
+
+def hider_post_coordinates_post(body):
+    """Placeholder"""
+
+
+def questions_answer_post():
+    """Answer current question"""
+    conn = get_db_connection()
+    if not conn:
+        return None, 500
+    
+    try:
+        cursor = conn.cursor()
+        # Find the currently asked question
+        cursor.execute(
+            """
+            UPDATE vtg_questions
+            SET status = 'Previously Asked', answer = 'Answered'
+            WHERE status = 'Currently Asked'
+            """
+        )
+        
+        if cursor.rowcount == 0:
+            return None, 404  # No current question
+        
+        conn.commit()
+        return None, 200
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        conn.rollback()
+        return None, 500
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
+
+
+def questions_ask_question_id_post(question_id):
+    """Ask a question"""
+    conn = get_db_connection()
+    if not conn:
+        return None, 500
+    
+    try:
+        cursor = conn.cursor()
+        
+        # First mark any current question as previously asked
+        cursor.execute(
+            """
+            UPDATE vtg_questions
+            SET status = 'Previously Asked', answer = 'Unanswered'
+            WHERE status = 'Currently Asked'
+            """
+        )
+        
+        # Then set the new question as current with Unix timestamp
+        current_time = int(time.time())
+        cursor.execute(
+            """
+            UPDATE vtg_questions
+            SET status = 'Currently Asked', asked_on = FROM_UNIXTIME(%s)
+            WHERE question_id = %s AND status = 'Not Asked'
+            """,
+            (current_time, question_id)
+        )
+        
+        if cursor.rowcount == 0:
+            return None, 404  # Question not found or already asked
+        
+        conn.commit()
+        return None, 200
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        conn.rollback()
+        return None, 500
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
+
+
+def questions_current_get():
+    """Get currently asked question info"""
+    conn = get_db_connection()
+    if not conn:
+        return {}, 500
+    
+    try:
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute(
+            """
+            SELECT vq.id as questionId, q.name, q.description, 
+                   UNIX_TIMESTAMP(vq.asked_on) as asked_on_unix,
+                   q.time_minutes
+            FROM vtg_questions vq
+            JOIN ro_questions q ON vq.question_id = q.id
+            WHERE vq.status = 'Currently Asked'
+            """
+        )
+        question = cursor.fetchone()
+        
+        if not question:
+            return {}, 404  # No current question
+        
+        # Calculate time left
+        current_time = int(time.time())
+        asked_on = question['asked_on_unix']
+        time_limit_seconds = question['time_minutes'] * 60
+        elapsed_seconds = current_time - asked_on
+        time_left = max(0, time_limit_seconds - elapsed_seconds)
+        
+        return {
+            "questionId": str(question['questionId']),
+            "name": question['name'],
+            "description": question['description'],
+            "timeLeft": time_left
+        }
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        return {}, 500
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
+
+
+def questions_get():
+    """Get all questions"""
+    conn = get_db_connection()
+    if not conn:
+        return [], 500
+    
+    try:
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute(
+            """
+            SELECT q.id, q.name, q.description, 
+                   CASE WHEN vq.status != 'Not Asked' THEN 1 ELSE 0 END as already_asked
+            FROM ro_questions q
+            JOIN vtg_questions vq ON q.id = vq.question_id
+            """
+        )
+        questions = cursor.fetchall()
+        
+        result = []
+        for question in questions:
+            question_obj = {
+                "id": str(question['id']),
+                "name": question['name'],
+                "description": question['description'],
+                "alreadyAsked": bool(question['already_asked'])
+            }
+            result.append(question_obj)
+        
+        return result
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        return [], 500
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
+
+
+def questions_previous_get():
+    """Get previously asked questions info"""
+    conn = get_db_connection()
+    if not conn:
+        return [], 500
+    
+    try:
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute(
+            """
+            SELECT vq.id as questionId, q.name, q.description, vq.answer
+            FROM vtg_questions vq
+            JOIN ro_questions q ON vq.question_id = q.id
+            WHERE vq.status = 'Previously Asked'
+            ORDER BY vq.asked_on DESC
+            """
+        )
+        questions = cursor.fetchall()
+        
+        result = []
+        for question in questions:
+            question_obj = {
+                "questionId": str(question['questionId']),
+                "name": question['name'],
+                "description": question['description'],
+                "answer": question['answer'] if question['answer'] else "No answer"
+            }
+            result.append(question_obj)
+        
+        return result
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        return [], 500
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
+
+
+def questions_veto_post():
+    """Veto current question"""
+    conn = get_db_connection()
+    if not conn:
+        return None, 500
+    
+    try:
+        cursor = conn.cursor()
+        
+        # Find and update the current question
+        cursor.execute(
+            """
+            UPDATE vtg_questions
+            SET status = 'Not Asked', asked_on = NULL
+            WHERE status = 'Currently Asked'
+            """
+        )
+        
+        if cursor.rowcount == 0:
+            return None, 404  # No current question
+        
+        conn.commit()
+        return None, 200
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        conn.rollback()
+        return None, 500
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
+
+
+def seeker_get_coordinates_get():
+    """Placeholder"""
+
+
+def seeker_info_get():
+    """Placeholder"""
+
+
+def seeker_post_coordinates_post(body):
+    """Placeholder"""
