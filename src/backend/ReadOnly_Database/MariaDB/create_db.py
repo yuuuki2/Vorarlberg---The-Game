@@ -10,6 +10,7 @@ import mysql.connector  # Changed from sqlite3 to mysql.connector
 import geopandas as gpd
 from shapely.geometry import Point, shape
 import pickle
+from create_info_db import main as create_info_db_main
 
 
 # Constants
@@ -96,15 +97,54 @@ def init_db():
     ) ENGINE=InnoDB
     """)
     
-    # Create read-only user
+    conn.commit()
+    
+    # Prompt: Please modify this code to grant the newly created user full privileges to vtg_, but only allow him to read any table with prefix ro_
     try:
-        c.execute("CREATE USER IF NOT EXISTS 'vtg_server'@'localhost' IDENTIFIED BY 'vtg_server'")
-        c.execute(f"GRANT SELECT ON {DB_CONFIG['database']}.* TO 'vtg_server'@'localhost'")
+        conn = mysql.connector.connect(**DB_CONFIG)
+        c = conn.cursor()
+
+        # Drop user if exists
+        c.execute("DROP USER IF EXISTS 'vtg_server'@'localhost'")
+
+        # Create user
+        c.execute("CREATE USER 'vtg_server'@'localhost' IDENTIFIED BY 'vtg_server'")
+
+        # Get all tables starting with vtg_
+        c.execute(f"""
+            SELECT table_name FROM information_schema.tables 
+            WHERE table_schema = %s AND table_name LIKE 'vtg_%'
+        """, (DB_CONFIG['database'],))
+        vtg_tables = c.fetchall()
+
+        # Grant full DML privileges on vtg_ tables
+        for (table_name,) in vtg_tables:
+            c.execute(f"""
+                GRANT SELECT, INSERT, UPDATE, DELETE ON `{DB_CONFIG['database']}`.`{table_name}` TO 'vtg_server'@'localhost'
+            """)
+
+        # Get all ro_ tables
+        c.execute(f"""
+            SELECT table_name FROM information_schema.tables 
+            WHERE table_schema = %s AND table_name LIKE 'ro_%'
+        """, (DB_CONFIG['database'],))
+        ro_tables = c.fetchall()
+
+        # Grant only SELECT on ro_ tables
+        for (table_name,) in ro_tables:
+            c.execute(f"""
+                GRANT SELECT ON `{DB_CONFIG['database']}`.`{table_name}` TO 'vtg_server'@'localhost'
+            """)
+
+        # Flush privileges
         c.execute("FLUSH PRIVILEGES")
-        print("Read-only user 'vtg_server' created with password 'vtg_server'")
+        conn.commit()
+
+        print("User 'vtg_server' created with correct privileges.")
+
     except mysql.connector.Error as err:
-        print(f"Error creating read-only user: {err}")
-        
+        print(f"Error configuring user permissions: {err}")
+            
     conn.commit()
     return conn
 
@@ -627,6 +667,8 @@ def calculate_distances(conn, step_km=2):
     
 
 def main():
+    create_info_db_main()  # Create info database
+    
     conn = init_db()
     print("Fetching Vorarlberg boundary...")
     boundary = get_vorarlberg_boundary()
