@@ -534,15 +534,84 @@ def hider_bus_stop_bus_stop_id_post(bus_stop_id):
 
 
 def hider_get_coordinates_get():
-    """Placeholder"""
+    """Get coordinates of hider"""
+    return {
+        "lat": HIDER_INFO['lat'],
+        "lon": HIDER_INFO['lon']
+    }
 
 
 def hider_info_get():
-    """Placeholder"""
+    """Get hider info"""
+    conn = get_db_connection()
+    if not conn:
+        return {}, 500
+    
+    try:
+        cursor = conn.cursor(dictionary=True)
+        
+        if not HIDER_INFO['bus_stop_id']:
+            # Return basic info if no bus stop selected
+            return {
+                "lat": HIDER_INFO['lat'],
+                "lon": HIDER_INFO['lon']
+            }
+        
+        # Get bus stop details
+        cursor.execute(
+            """
+            SELECT name, lat, lon, altitude, bezirk, gemeinde, 
+                   distance_trainstation, distance_mountain, 
+                   distance_minigolf, distance_museum
+            FROM ro_stops
+            WHERE id = %s
+            """,
+            (HIDER_INFO['bus_stop_id'],)
+        )
+        bus_stop = cursor.fetchone()
+        
+        if not bus_stop:
+            return {}, 404
+        
+        hider_info = {
+            "lat": HIDER_INFO['lat'],
+            "lon": HIDER_INFO['lon'],
+            "busStationName": bus_stop['name'],
+            "busStationLat": bus_stop['lat'],
+            "busStationLon": bus_stop['lon'],
+            "busStationAltitude": bus_stop['altitude'],
+            "busStationBezirk": bus_stop['bezirk'],
+            "busStationGemeinde": bus_stop['gemeinde'],
+            "distanceToNearestTrainStation": bus_stop['distance_trainstation'],
+            "distanceToNearestMountain": bus_stop['distance_mountain'],
+            "distanceToNearestMinigolf": bus_stop['distance_minigolf'],
+            "distanceToNearestMuseum": bus_stop['distance_museum']
+        }
+        
+        return hider_info
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+        return {}, 500
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
 
 
 def hider_post_coordinates_post(body):
-    """Placeholder"""
+    """Post coordinates of hider"""
+    global HIDER_INFO
+    
+    if connexion.request.is_json:
+        data = connexion.request.get_json()
+        
+        # Update hider coordinates
+        if 'lat' in data and 'lon' in data:
+            HIDER_INFO['lat'] = data['lat']
+            HIDER_INFO['lon'] = data['lon']
+            return None, 200
+    
+    return None, 400  # Bad request
 
 
 def questions_answer_post():
