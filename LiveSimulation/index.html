@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vorarlberg Game - Live Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    body { 
+      margin: 0; 
+      padding: 0; 
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+    #map { 
+      height: 100vh; 
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+    .controls {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 10px;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(3px);
+    }
+    .btn {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 0 10px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+    .game-step {
+      font-size: 20px;
+      margin: 0 20px;
+      min-width: 100px;
+      text-align: center;
+      background-color: white;
+      padding: 8px 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      font-weight: bold;
+      color: #333;
+    }
+    .tooltip {
+      font-size: 14px;
+      background-color: white;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 4px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    /* Image box style */
+    .image-box {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      max-width: 33%; /* Maximum width constraint */
+      height: auto; /* Let height adjust to content */
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+      padding: 15px;
+      display: none; /* Hidden by default */
+      overflow: hidden;
+    }
+    .image-box img {
+      display: block;
+      max-width: 100%;
+      max-height: 33vh; /* Maximum height constraint */
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  
+  <div class="controls">
+    <button id="prevBtn" class="btn">Previous Step</button>
+    <div id="gameStep" class="game-step">Step: 0</div>
+    <button id="nextBtn" class="btn">Next Step</button>
+  </div>
+
+  <!-- Added image box container -->
+  <div id="imageBox" class="image-box">
+    <img id="stepImage" src="" alt="Step image">
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Initialize map
+    const map = L.map('map').setView([47.4, 9.7], 11);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+    
+
+    let boundaryLayer = L.layerGroup().addTo(map);
+    const poiLayer = L.layerGroup();
+    
+    // Style functions for boundaries
+    function getStyleForBoundary(type) {
+      const colors = {
+        'bundesland': '#800080', // Purple for Vorarlberg
+        'bezirk': '#0000FF',     // Blue for Bezirke
+        'gemeinde': '#008000'    // Green for Gemeinden
+      };
+      
+      return {
+        fillColor: colors[type] || '#3388ff',
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.2
+      };
+    }
+
+    // Layer for bus stops
+    const busStopLayer = L.layerGroup().addTo(map);
+    
+    // Layer for special markers
+    const markerLayer = L.layerGroup().addTo(map);
+
+    
+    // Game state
+    let gameStep = 0;
+    
+    // Update game step display
+    function updateGameStepDisplay() {
+      document.getElementById('gameStep').textContent = `Step: ${gameStep}`;
+      
+      // Show or hide image box based on game step
+      const imageBox = document.getElementById('imageBox');
+      const stepImage = document.getElementById('stepImage');
+      
+      if (gameStep >= 4) {
+        // Set the image source using the Flask route
+        const imagePath = `/images/picture_step_${gameStep}.png`;
+        stepImage.src = imagePath;
+        
+        // Add error handling to diagnose image loading issues
+        stepImage.onerror = function() {
+          console.error(`Failed to load image: ${imagePath}`);
+          // Fallback to a default image
+          stepImage.src = '/images/picture_step_4.png';
+        };
+        
+        stepImage.onload = function() {
+          console.log(`Successfully loaded image: ${imagePath}`);
+          imageBox.style.display = 'block';
+        };
+      } else {
+        imageBox.style.display = 'none';
+      }
+    }
+    
+    // Draw special markers based on game step
+    function drawSpecialMarkers() {
+      // Clear previous markers
+      markerLayer.clearLayers();
+      
+      // Always add yellow marker (coordinates are fixed)
+      const yellowMarker = L.marker([47.432111,9.897382], {
+        icon: L.divIcon({
+          className: 'custom-marker',
+          html: `<div style="background-color: yellow; width: 20px; height: 20px; border-radius: 50%; border: 2px solid #333;"></div>`,
+          iconSize: [24, 24],
+          iconAnchor: [12, 12]
+        })
+      }).addTo(markerLayer);
+      yellowMarker.bindTooltip("Hider");
+      
+      // Define coordinates for step 1 and 2
+      const step1Coords = [47.417157, 9.738644]; // Starting position
+      const step2Coords = [47.412526, 9.731503]; // New position for step 2
+      
+      // Add red marker based on game step
+      let redMarkerCoords;
+      
+      switch(gameStep) {
+        case 0:
+          redMarkerCoords = step1Coords;
+          break;
+        case 1:
+          redMarkerCoords = step1Coords;
+          // Add orange circle with 75% transparency
+          L.circle(redMarkerCoords, {
+            radius: 10000, // radius in meters
+            color: 'orange',
+            fillColor: 'orange',
+            fillOpacity: 0.75,
+            weight: 1
+          }).addTo(markerLayer);
+          break;
+        case 2:
+          redMarkerCoords = step2Coords;
+          
+          // Draw line from step 1 to step 2
+          const line = L.polyline([step1Coords, step2Coords], {
+            color: 'red',
+            weight: 3
+          }).addTo(markerLayer);
+          
+          // Calculate the perpendicular line that passes through the middle
+          const midPoint = [
+            (step1Coords[0] + step2Coords[0]) / 2,
+            (step1Coords[1] + step2Coords[1]) / 2
+          ];
+          
+          // Calculate the perpendicular slope (negative reciprocal)
+          const dx = step2Coords[1] - step1Coords[1]; // Note: lon is x
+          const dy = step2Coords[0] - step1Coords[0]; // Note: lat is y
+          
+          // Perpendicular direction vector (-dy, dx)
+          const perpDx = -dy;
+          const perpDy = dx;
+          
+          // Normalize the vector
+          const length = Math.sqrt(perpDx * perpDx + perpDy * perpDy);
+          const normPerpDx = perpDx / length;
+          const normPerpDy = perpDy / length;
+          
+          // Distance for each segment (different distances for better visibility)
+          const distance1 = 1.0; // approximately 111km in this direction
+          const distance2 = 1.0; // approximately 111km in the opposite direction
+          
+          // Calculate end points for two lines from midpoint
+          const perpPoint1 = [
+            midPoint[0] + normPerpDy * distance1,
+            midPoint[1] + normPerpDx * distance1
+          ];
+          
+          const perpPoint2 = [
+            midPoint[0] - normPerpDy * distance2,
+            midPoint[1] - normPerpDx * distance2
+          ];
+          
+          // Draw two separate lines from the midpoint (not one continuous line)
+          L.polyline([midPoint, perpPoint1], {
+            color: 'red',
+            weight: 3,
+            dashArray: '5, 5' // make it dashed to distinguish it
+          }).addTo(markerLayer);
+          
+          L.polyline([midPoint, perpPoint2], {
+            color: 'red',
+            weight: 3,
+            dashArray: '5, 5' // make it dashed to distinguish it
+          }).addTo(markerLayer);
+          break;
+        case 3:
+          // Step 3: Move marker to new coordinates
+          redMarkerCoords = [47.446800, 9.754064];
+
+            document.querySelectorAll('input[name="boundaryType"]').forEach(radio => {
+                radio.addEventListener('change', function(e) {
+                    const boundaryType = e.target.value;
+                    
+                    // Clear current boundary layer
+                    boundaryLayer.clearLayers();
+                    
+                    if (boundaryType !== 'none') {
+                        // Load and display new boundaries
+                        fetch(`/boundaries/${boundaryType}.json`)
+                            .then(res => res.json())
+                            .then(geojson => {
+                                boundaryLayer = L.geoJSON(geojson, {
+                                    style: function(feature) {
+                                        return getStyleForBoundary(feature.properties.type);
+                                    },
+                                    onEachFeature: function(feature, layer) {
+                                        layer.bindTooltip(feature.properties.name);
+                                    }
+                                }).addTo(map);
+                            });
+                    }
+                });
+                });
+
+          break;
+        case 4:
+          // Step 4: Do nothing, just use the same coordinates as step 3
+          redMarkerCoords = [47.446800, 9.754064];
+          break;
+        case 5:
+          // Step 5: Keep the marker at step 3 position and add train station rings
+          redMarkerCoords = [47.446800, 9.754064];
+          
+          // Fetch train stations from the POI table
+          fetch('/poi/train_station')
+            .then(res => res.json())
+            .then(stations => {
+              stations.forEach(station => {
+                // Create outer circle (5km) with 75% transparency
+                L.circle([station.lat, station.lon], {
+                  radius: 5000, // 5km radius
+                  color: 'green',
+                  fillColor: 'green',
+                  fillOpacity: 0.05,
+                  weight: 1
+                }).addTo(markerLayer);
+                
+                // Add a small marker for the station itself with tooltip
+                L.circleMarker([station.lat, station.lon], {
+                  radius: 4,
+                  color: 'black',
+                  fillColor: 'green',
+                  fillOpacity: 1,
+                  weight: 1
+                }).addTo(markerLayer).bindTooltip(station.name);
+              });
+            })
+            .catch(err => {
+              console.error('Error loading train stations:', err);
+            });
+          break;
+        case 6:
+          // Step 6: Draw lines similar to step 2 with new coordinates
+          const step6Coords1 = [47.438056, 9.756982]; // First coordinate
+          const step6Coords2 = [47.451746, 9.820544]; // Second coordinate
+          redMarkerCoords = step6Coords2; // Move red marker to coords 2
+          
+          // Draw line from coords 1 to coords 2
+          const step6Line = L.polyline([step6Coords1, step6Coords2], {
+            color: 'red',
+            weight: 3
+          }).addTo(markerLayer);
+          
+          // Calculate the perpendicular line that passes through the middle
+          const step6MidPoint = [
+            (step6Coords1[0] + step6Coords2[0]) / 2,
+            (step6Coords1[1] + step6Coords2[1]) / 2
+          ];
+          
+          // Calculate the perpendicular slope (negative reciprocal)
+          const step6Dx = step6Coords2[1] - step6Coords1[1]; // Note: lon is x
+          const step6Dy = step6Coords2[0] - step6Coords1[0]; // Note: lat is y
+          
+          // Perpendicular direction vector (-dy, dx)
+          const step6PerpDx = -step6Dy;
+          const step6PerpDy = step6Dx;
+          
+          // Normalize the vector
+          const step6Length = Math.sqrt(step6PerpDx * step6PerpDx + step6PerpDy * step6PerpDy);
+          const step6NormPerpDx = step6PerpDx / step6Length;
+          const step6NormPerpDy = step6PerpDy / step6Length;
+          
+          // Distance for each segment (different distances for better visibility)
+          const step6Distance1 = 1.0; // approximately 111km in this direction
+          const step6Distance2 = 1.0; // approximately 111km in the opposite direction
+          
+          // Calculate end points for two lines from midpoint
+          const step6PerpPoint1 = [
+            step6MidPoint[0] + step6NormPerpDy * step6Distance1,
+            step6MidPoint[1] + step6NormPerpDx * step6Distance1
+          ];
+          
+          const step6PerpPoint2 = [
+            step6MidPoint[0] - step6NormPerpDy * step6Distance2,
+            step6MidPoint[1] - step6NormPerpDx * step6Distance2
+          ];
+          
+          // Draw two separate lines from the midpoint (not one continuous line)
+          L.polyline([step6MidPoint, step6PerpPoint1], {
+            color: 'red',
+            weight: 3,
+            dashArray: '5, 5' // make it dashed to distinguish it
+          }).addTo(markerLayer);
+          
+          L.polyline([step6MidPoint, step6PerpPoint2], {
+            color: 'red',
+            weight: 3,
+            dashArray: '5, 5' // make it dashed to distinguish it
+          }).addTo(markerLayer);
+          break;
+        case 7:
+          redMarkerCoords = [47.432013, 9.897129]; // Keep the same position
+          break;
+        default:
+          redMarkerCoords = step1Coords;
+      }
+      
+      // Create and add the red marker
+      const redMarker = L.marker(redMarkerCoords, {
+        icon: L.divIcon({
+          className: 'custom-marker',
+          html: `<div style="background-color: red; width: 20px; height: 20px; border-radius: 50%; border: 2px solid #333;"></div>`,
+          iconSize: [24, 24],
+          iconAnchor: [12, 12]
+        })
+      }).addTo(markerLayer);
+      redMarker.bindTooltip(`Seeker`);
+    }
+    
+    // Load bus stops for current game step
+    function loadBusStops() {
+      busStopLayer.clearLayers();
+      
+      fetch(`/stops/${gameStep}`)
+        .then(res => res.json())
+        .then(stops => {
+          stops.forEach(stop => {
+            const circle = L.circle([stop.lat, stop.lon], {
+              radius: 400, // Radius in meters
+              color: '#007bff',
+              fillColor: '#007bff',
+              fillOpacity: 0.5
+            }).addTo(busStopLayer);
+
+            circle.bindTooltip(`
+              <div class="tooltip">
+                <strong>${stop.name}</strong><br>
+                Gemeinde: ${stop.gemeinde}<br>
+                Bezirk: ${stop.bezirk}<br>
+                Höhe: ${stop.altitude} m
+              </div>
+            `, { direction: 'top' });
+          });
+          
+          // Draw special markers after loading bus stops
+          drawSpecialMarkers();
+          
+          console.log(`Loaded ${stops.length} bus stops for game step ${gameStep}`);
+        })
+        .catch(err => {
+          console.error('Error loading bus stops:', err);
+        });
+    }
+    
+    // Initialize the map
+    loadBusStops();
+    updateGameStepDisplay(); // Make sure to initialize the display
+    
+    // Event handlers for buttons
+    document.getElementById('prevBtn').addEventListener('click', function() {
+      gameStep = Math.max(0, gameStep - 1);
+      updateGameStepDisplay();
+      loadBusStops();
+    });
+    
+    document.getElementById('nextBtn').addEventListener('click', function() {
+      gameStep = Math.min(7, gameStep + 1);
+      updateGameStepDisplay();
+      loadBusStops();
+    });
+    
+    
+  </script>
+</body>
+</html>

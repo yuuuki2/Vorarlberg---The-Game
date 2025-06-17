@@ -83,3 +83,14 @@
 * Adjusted user privileges
 * Added Unit tests to DB Creation
 * Coded Rest API Server
+
+
+
+# 16-06-2025
+* Created Live Demo
+* Presented Project at AlphaGate
+
+
+
+# 17-06-2025
+* Added Installation Guide for Database, Backend, ad Live Demo
