@@ -1,3 +1,10 @@
+"""! @file
+@brief Controller module for the Vorarlberg The Game backend server.
+
+This module implements all the controller functions for the game's API endpoints.
+It handles game state management, player coordinates, questions, cards, and more.
+"""
+
 import connexion
 import mysql.connector
 import time
@@ -20,36 +27,39 @@ from openapi_server.models.seeker_info_get200_response import SeekerInfoGet200Re
 from openapi_server.models.seeker_post_coordinates_post_request import SeekerPostCoordinatesPostRequest
 from openapi_server import util
 
-# Database configuration
+##! Database configuration settings
 DB_CONFIG = {
-    'user': 'vtg_server',
-    'password': 'vtg_server',
-    'host': 'localhost',
-    'database': 'vtg_data'
+    'user': 'vtg_server',      ##!< Database user
+    'password': 'vtg_server',  ##!< Database password
+    'host': 'localhost',       ##!< Database host
+    'database': 'vtg_data'     ##!< Database name
 }
 
-# Global variables for game state
+##! Global game state variables
 GAME_STATE = {
-    'is_started': False,
-    'start_time': None,  # Will store Unix timestamp
-    'hider_name': 'Hider',
-    'seeker_name': 'Seeker'
+    'is_started': False,       ##!< Flag indicating if game is in progress
+    'start_time': None,        ##!< Game start time in Unix timestamp
+    'hider_name': 'Hider',     ##!< Name of the hider player
+    'seeker_name': 'Seeker'    ##!< Name of the seeker player
 }
 
-# Global variables for coordinates (Dornbirn coordinates)
+##! Global hider information
 HIDER_INFO = {
-    'lat': 47.4167,  # Dornbirn coordinates
-    'lon': 9.7333,
-    'bus_stop_id': None
+    'lat': 47.4167,           ##!< Hider's latitude (default: Dornbirn)
+    'lon': 9.7333,            ##!< Hider's longitude (default: Dornbirn)
+    'bus_stop_id': None       ##!< ID of the bus stop where hider is hiding
 }
 
+##! Global seeker information
 SEEKER_INFO = {
-    'lat': 47.4167,  # Dornbirn coordinates
-    'lon': 9.7333
+    'lat': 47.4167,           ##!< Seeker's latitude (default: Dornbirn)
+    'lon': 9.7333             ##!< Seeker's longitude (default: Dornbirn)
 }
 
-# Utility function to get database connection
 def get_db_connection():
+    """! Establish a connection to the MySQL database.
+    @return mysql.connector.connection.MySQLConnection object if successful, None if failed
+    """
     try:
         conn = mysql.connector.connect(**DB_CONFIG)
         return conn
@@ -58,7 +68,14 @@ def get_db_connection():
         return None
 
 # Utility function to calculate distance between two coordinates
-def haversine_distance(lat1, lon1, lat2, lon2):
+def haversine_distance(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
+    """! Calculate the great circle distance between two points on the earth.
+    @param lat1 Latitude of the first point in decimal degrees
+    @param lon1 Longitude of the first point in decimal degrees
+    @param lat2 Latitude of the second point in decimal degrees
+    @param lon2 Longitude of the second point in decimal degrees
+    @return Distance in meters between the two points
+    """
     # Convert latitude and longitude from degrees to radians
     lat1, lon1, lat2, lon2 = map(radians, [lat1, lon1, lat2, lon2])
     
@@ -71,8 +88,14 @@ def haversine_distance(lat1, lon1, lat2, lon2):
     return c * r * 1000  # Convert to meters
 
 
-def bus_routes_get():
-    """Get all bus routes"""
+def bus_routes_get() -> List[Dict]:
+    """! Get all available bus routes from the database.
+    @return List of dictionaries containing route information 
+            Each dictionary contains:
+            - routeId: The unique identifier of the route
+            - routeName: The name of the route
+    @return ([{}], 500) on database error
+    """
     conn = get_db_connection()
     if not conn:
         return [], 500
@@ -100,8 +123,16 @@ def bus_routes_get():
             conn.close()
 
 
-def bus_stops_get():
-    """Get all bus stops"""
+def bus_stops_get() -> List[Dict]:
+    """! Get all bus stops from the database.
+    @return List of dictionaries containing bus stop information
+            Each dictionary contains:
+            - busStopId: The unique identifier of the bus stop
+            - busStopName: The name of the bus stop
+            - busStopLat: The latitude coordinate of the bus stop
+            - busStopLon: The longitude coordinate of the bus stop
+    @return ([{}], 500) on database error
+    """
     conn = get_db_connection()
     if not conn:
         return [], 500
@@ -131,8 +162,18 @@ def bus_stops_get():
             conn.close()
 
 
-def bus_stops_in_range_get():
-    """Get bus stops in range"""
+def bus_stops_in_range_get() -> List[Dict]:
+    """! Get all bus stops within 400 meters of the seeker's current position.
+    @return List of dictionaries containing nearby bus stop information
+            Each dictionary contains:
+            - busStopId: The unique identifier of the bus stop
+            - busStopName: The name of the bus stop
+            - busStopLat: The latitude coordinate of the bus stop
+            - busStopLon: The longitude coordinate of the bus stop
+    @note Uses SEEKER_INFO global variable for current seeker position
+    @note Maximum range is 400 meters
+    @return ([{}], 500) on database error
+    """
     conn = get_db_connection()
     if not conn:
         return [], 500
@@ -170,8 +211,13 @@ def bus_stops_in_range_get():
             conn.close()
 
 
-def cards_card_id_discard_post(card_id):
-    """Discard a card"""
+def cards_card_id_discard_post(card_id: int) -> Tuple[None, int]:
+    """! Discard a card from the player's hand.
+    @param card_id The unique identifier of the card to discard
+    @return (None, 200) if successful
+    @return (None, 404) if card not found or not in hand
+    @return (None, 500) on database error
+    """
     conn = get_db_connection()
     if not conn:
         return None, 500
@@ -199,8 +245,15 @@ def cards_card_id_discard_post(card_id):
             conn.close()
 
 
-def cards_card_id_use_post(card_id):
-    """Use a card"""
+def cards_card_id_use_post(card_id: int) -> Tuple[None, int]:
+    """! Use a card from the player's hand.
+    @param card_id The unique identifier of the card to use
+    @return (None, 200) if successful
+    @return (None, 404) if card not found or not in hand
+    @return (None, 500) on database error
+    @note For curse cards, they are added to the curses table with current timestamp
+    @note Other cards are marked as 'In Effect'
+    """
     conn = get_db_connection()
     if not conn:
         return None, 500
@@ -252,8 +305,16 @@ def cards_card_id_use_post(card_id):
             conn.close()
 
 
-def cards_get():
-    """Get card hand info"""
+def cards_get() -> List[Dict]:
+    """! Get all cards currently in the player's hand.
+    @return List of dictionaries containing card information
+            Each dictionary contains:
+            - cardId: The unique identifier of the card
+            - name: The name of the card
+            - description: The description of the card's effect
+            - type: The type of the card (e.g., 'curse')
+    @return ([{}], 500) on database error
+    """
     conn = get_db_connection()
     if not conn:
         return [], 500
@@ -290,8 +351,13 @@ def cards_get():
             conn.close()
 
 
-def curses_curse_id_complete_post(curse_id):
-    """Complete a curse"""
+def curses_curse_id_complete_post(curse_id: int) -> Tuple[None, int]:
+    """! Mark a curse as completed and remove it from active curses.
+    @param curse_id The unique identifier of the curse to complete
+    @return (None, 200) if successful
+    @return (None, 404) if curse not found
+    @return (None, 500) on database error
+    """
     conn = get_db_connection()
     if not conn:
         return None, 500
@@ -325,8 +391,15 @@ def curses_curse_id_complete_post(curse_id):
             conn.close()
 
 
-def curses_get():
-    """Get current curses info"""
+def curses_get() -> List[Dict]:
+    """! Get all currently active curses.
+    @return List of dictionaries containing curse information
+            Each dictionary contains:
+            - curseId: The unique identifier of the curse
+            - name: The name of the curse
+            - description: The description of the curse's effect
+    @return ([{}], 500) on database error
+    """
     conn = get_db_connection()
     if not conn:
         return [], 500
@@ -361,13 +434,20 @@ def curses_get():
             conn.close()
 
 
-def exists_get():
-    """Check if server exists"""
+def exists_get() -> Tuple[None, int]:
+    """! Check if the server is running and accessible.
+    @return (None, 200) if server is running
+    """
     return None, 200
 
 
-def game_end_post():
-    """End game"""
+def game_end_post() -> Tuple[None, int]:
+    """! End the current game and reset all game state.
+    @return (None, 200) if successful
+    @return (None, 500) on database error
+    @note Resets all temporary tables (cards, curses, questions)
+    @note Resets global game state variables
+    """
     global GAME_STATE
     
     GAME_STATE['is_started'] = False
@@ -396,8 +476,13 @@ def game_end_post():
             conn.close()
 
 
-def game_info_get():
-    """Get game info"""
+def game_info_get() -> Dict:
+    """! Get current game information.
+    @return Dictionary containing game information:
+            - currentGameTimer: Time elapsed since game start in seconds
+            - hiderName: Name of the hider player
+            - seekerName: Name of the seeker player
+    """
     current_time = int(time.time())  # Current Unix timestamp
     current_game_timer = 0
     
@@ -413,8 +498,15 @@ def game_info_get():
     return game_info
 
 
-def game_start_post():
-    """Start game"""
+def game_start_post() -> Tuple[None, int]:
+    """! Start a new game.
+    @return (None, 200) if successful
+    @return (None, 500) on database error
+    @note Initializes card deck with all cards set to 'In Deck'
+    @note Deals initial hand of 3 cards
+    @note Initializes questions table with all questions set to 'Not Asked'
+    @note Clears any existing curses
+    """
     global GAME_STATE
     
     GAME_STATE['is_started'] = True
@@ -480,8 +572,13 @@ def game_start_post():
             conn.close()
 
 
-def game_swap_roles_post():
-    """Swap hider and seeker"""
+def game_swap_roles_post() -> Tuple[None, int]:
+    """! Swap the roles of hider and seeker players.
+    @return (None, 200) if successful
+    @note Swaps player names in GAME_STATE
+    @note Swaps player coordinates between HIDER_INFO and SEEKER_INFO
+    @note Resets hider's bus_stop_id to None
+    """
     global GAME_STATE, HIDER_INFO, SEEKER_INFO
     
     # Swap player names
@@ -499,8 +596,14 @@ def game_swap_roles_post():
     return None, 200
 
 
-def hider_bus_stop_bus_stop_id_post(bus_stop_id):
-    """Set hiding bus stop"""
+def hider_bus_stop_bus_stop_id_post(bus_stop_id: int) -> Tuple[None, int]:
+    """! Set the bus stop where the hider is hiding.
+    @param bus_stop_id The unique identifier of the chosen bus stop
+    @return (None, 200) if successful
+    @return (None, 404) if bus stop not found
+    @return (None, 500) on database error
+    @note Updates hider's coordinates to match the bus stop location
+    """
     global HIDER_INFO
     
     conn = get_db_connection()
@@ -533,16 +636,35 @@ def hider_bus_stop_bus_stop_id_post(bus_stop_id):
             conn.close()
 
 
-def hider_get_coordinates_get():
-    """Get coordinates of hider"""
+def hider_get_coordinates_get() -> Dict:
+    """! Get the current coordinates of the hider.
+    @return Dictionary containing hider's coordinates:
+            - lat: Latitude coordinate
+            - lon: Longitude coordinate
+    """
     return {
         "lat": HIDER_INFO['lat'],
         "lon": HIDER_INFO['lon']
     }
 
 
-def hider_info_get():
-    """Get hider info"""
+def hider_info_get() -> Dict:
+    """! Get detailed information about the hider's current location.
+    @return Dictionary containing hider information:
+            - lat: Latitude coordinate
+            - lon: Longitude coordinate
+            - busStationName: Name of the bus station (if at one)
+            - busStationLat: Bus station latitude
+            - busStationLon: Bus station longitude
+            - busStationAltitude: Altitude of the bus station
+            - busStationBezirk: District where the bus station is located
+            - busStationGemeinde: Municipality where the bus station is located
+            - distanceToNearestTrainStation: Distance to nearest train station
+            - distanceToNearestMountain: Distance to nearest mountain
+            - distanceToNearestMinigolf: Distance to nearest minigolf
+            - distanceToNearestMuseum: Distance to nearest museum
+    @return (Dict, 500) on database error with basic location info only
+    """
     conn = get_db_connection()
     if not conn:
         return {}, 500
@@ -598,8 +720,14 @@ def hider_info_get():
             conn.close()
 
 
-def hider_post_coordinates_post(body):
-    """Post coordinates of hider"""
+def hider_post_coordinates_post(body: Dict) -> Tuple[None, int]:
+    """! Update the hider's coordinates.
+    @param body Dictionary containing new coordinates:
+                - lat: New latitude coordinate
+                - lon: New longitude coordinate
+    @return (None, 200) if successful
+    @return (None, 400) if request body is invalid
+    """
     global HIDER_INFO
     
     if connexion.request.is_json:
@@ -845,16 +973,32 @@ def questions_veto_post():
             conn.close()
 
 
-def seeker_get_coordinates_get():
-    """Get coordinates of seeker"""
+def seeker_get_coordinates_get() -> Dict:
+    """! Get the current coordinates of the seeker.
+    @return Dictionary containing seeker's coordinates:
+            - lat: Latitude coordinate
+            - lon: Longitude coordinate
+    """
     return {
         "lat": SEEKER_INFO['lat'],
         "lon": SEEKER_INFO['lon']
     }
 
 
-def seeker_info_get():
-    """Get seeker info"""
+def seeker_info_get() -> Dict:
+    """! Get detailed information about the seeker's current location.
+    @return Dictionary containing seeker information:
+            - lat: Latitude coordinate
+            - lon: Longitude coordinate
+            - altitude: Current altitude
+            - bezirk: Current district
+            - gemeinde: Current municipality
+            - distanceToNearestTrainStation: Distance to nearest train station
+            - distanceToNearestMountain: Distance to nearest mountain
+            - distanceToNearestMinigolf: Distance to nearest minigolf
+            - distanceToNearestMuseum: Distance to nearest museum
+    @return Basic info dict with default values on database error
+    """
     conn = get_db_connection()
     if not conn:
         return {}, 500
