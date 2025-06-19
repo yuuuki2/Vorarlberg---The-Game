@@ -16,3 +16,26 @@
 * ![UI_Vorarlberg-The-Game](/img/Figma2.png)
 
 
+## 08-05-2025
+
+* Created session join UI 
+
+## 09-05-2025
+
+* Built room interface 
+
+## 11-05-2025
+
+* Added stop search feature 
+
+## 13-05-2025
+
+* Developed auxiliary Wuefei page 
+
+## 14-05-2025
+
+* Implemented dice page UI 
+
+## 15-06-2025
+
+* Integrated part of REST API
