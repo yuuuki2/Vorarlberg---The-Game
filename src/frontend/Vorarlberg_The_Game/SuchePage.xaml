@@ -1,0 +1,38 @@
+<!-- 
+    @file SuchePage.xaml
+    @brief Stop search page interface
+    @details Provides a search interface for finding and selecting
+             transit stops or stations
+-->
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Game.SuchePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Haltestelle suchen">
+
+    <!-- Main layout container -->
+    <VerticalStackLayout Padding="15" Spacing="10">
+        <!-- Search input field -->
+        <SearchBar
+            Placeholder="Haltestelle suchen"
+            Text="{Binding SearchText, Mode=TwoWay}" />
+
+        <!-- Search results list -->
+        <CollectionView
+            ItemsSource="{Binding FilteredStops}"
+            SelectionMode="Single"
+            SelectedItem="{Binding SelectedStop, Mode=TwoWay}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Label Text="{Binding .}" Padding="10" FontSize="Medium" />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
+            <Button Text="Abbrechen" Clicked="Cancel_Clicked" />
+            <Button Text="Bestätigen" Clicked="Confirm_Clicked" />
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

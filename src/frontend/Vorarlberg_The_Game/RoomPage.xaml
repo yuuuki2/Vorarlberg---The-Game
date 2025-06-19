@@ -1,0 +1,62 @@
+<!-- 
+    @file RoomPage.xaml
+    @brief Game room interface page
+    @details This page displays the game room interface where players can see
+             other participants and manage room settings
+-->
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="Game.RoomPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             BackgroundColor="#000152">
+    <!-- Main layout container -->
+    <VerticalStackLayout
+        Padding="30"
+        Spacing="20"
+        VerticalOptions="Fill"
+        HorizontalOptions="Center">
+
+        <!-- Room title -->
+        <Label Text="Room"
+               FontSize="24"
+               FontAttributes="Bold"
+               TextColor="White"
+               HorizontalOptions="Center" />
+
+        <!-- Player list display -->
+        <CollectionView x:Name="PlayerList"
+                        HeightRequest="300"
+                        WidthRequest="250"
+                        ItemsSource="{Binding Players}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BackgroundColor="White"
+                           Padding="10"
+                           Margin="5"
+                           CornerRadius="10">
+                        <Label Text="{Binding .}"
+                               TextColor="Black"
+                               FontAttributes="Bold" />
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
+            <Button Text="Start"
+                    BackgroundColor="Green"
+                    TextColor="White"
+                    CornerRadius="10"
+                    WidthRequest="120"
+                    Clicked="OnStartClicked" />
+
+            <Button Text="Back"
+                    BackgroundColor="White"
+                    TextColor="Black"
+                    CornerRadius="10"
+                    WidthRequest="120"
+                    Clicked="OnBackClicked" />
+        </HorizontalStackLayout>
+
+    </VerticalStackLayout>
+</ContentPage>

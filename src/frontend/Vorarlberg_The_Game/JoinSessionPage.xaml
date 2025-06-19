@@ -1,0 +1,56 @@
+<!-- 
+    @file JoinSessionPage.xaml
+    @brief Page for joining an existing game session
+    @details This page provides the user interface for entering session details
+             and connecting to an existing game session
+-->
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="Game.JoinSessionPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             BackgroundColor="#000152">
+    <!-- Main layout container -->
+    <VerticalStackLayout
+        Padding="30"
+        Spacing="25"
+        VerticalOptions="Center"
+        HorizontalOptions="Center">
+
+        <!-- Page title -->
+        <Label Text="Join a Session"
+               FontSize="24"
+               FontAttributes="Bold"
+               TextColor="White"
+               HorizontalOptions="Center" />
+
+        <!-- Session code input field -->
+        <Entry x:Name="SessionCodeEntry"
+               Placeholder="Enter session IP-Adress..."
+               PlaceholderColor="Gray"
+               TextColor="Black"
+               BackgroundColor="White"
+               WidthRequest="250"
+               HeightRequest="45"
+               HorizontalOptions="Center"
+               FontAttributes="Bold" />
+
+        <!-- Join button -->
+        <Button Text="JOIN"
+                BackgroundColor="Red"
+                TextColor="White"
+                FontAttributes="Bold"
+                WidthRequest="250"
+                CornerRadius="10"
+                Clicked="OnJoinClicked" />
+
+        <!-- Back button -->
+        <Button Text="Back"
+                BackgroundColor="White"
+                TextColor="Black"
+                FontAttributes="Bold"
+                WidthRequest="250"
+                CornerRadius="10"
+                Clicked="OnBackClicked" />
+
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,61 @@
+<!-- 
+    @file WuerfelPage.xaml
+    @brief Dice rolling page of the application
+    @details This page provides the user interface for the dice rolling
+             functionality, including dice animation and result display
+-->
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Game.WuerfelPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="White">
+
+    <!-- Main grid layout -->
+    <Grid RowDefinitions="Auto, *">
+        <!-- Dice and result display container -->
+        <VerticalStackLayout
+            Grid.Row="1"
+            Padding="30"
+            Spacing="40"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
+
+            <!-- Result display label -->
+            <Label
+                x:Name="ResultLabel"
+                Text="{Binding ResultText}"
+                IsVisible="{Binding ShowResult}"
+                FontSize="28"
+                FontAttributes="Bold"
+                TextColor="{StaticResource Primary}"
+                HorizontalOptions="Center" />
+            
+            <!-- Dice image view with tap gesture to roll the dice -->
+            <Image
+                x:Name="DiceImageView"
+                Source="{Binding DiceImage}"
+                WidthRequest="250"
+                HeightRequest="250"
+                Margin="0,0,0,20">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer 
+                        Tapped="OnRollClicked"
+                        NumberOfTapsRequired="1" />
+                </Image.GestureRecognizers>
+            </Image>
+
+            <!-- Close button to return to the previous page -->
+            <Button
+                Text="Schließen"
+                Clicked="OnCloseClicked"
+                BackgroundColor="{StaticResource Primary}"
+                TextColor="Black"
+                FontSize="20"
+                FontAttributes="Bold"
+                CornerRadius="10"
+                Padding="20,10"
+                HorizontalOptions="FillAndExpand" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
