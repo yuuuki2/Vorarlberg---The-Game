@@ -1,0 +1,20 @@
+<!-- 
+    @file CardDeckPage.xaml
+    @brief Card deck interface page
+    @details Provides the user interface for displaying and interacting
+             with the game's card deck functionality
+-->
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Game.CardDeckPage"
+             Title="CardDeckPage">
+    <!-- Main layout container -->
+    <VerticalStackLayout>
+        <!-- Welcome message -->
+        <Label 
+            Text="Welcome to .NET MAUI!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</ContentPage>

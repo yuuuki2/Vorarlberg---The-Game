@@ -1,0 +1,101 @@
+﻿<!--
+    @file leaflet-map.html
+    @brief Interactive map implementation using Leaflet.js
+    @details This file implements the interactive map functionality using Leaflet.js
+             for displaying user locations and navigation within the game.
+    @author Your Name
+    @date 2025-06-19
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Map</title>
+    <!-- @brief Leaflet CSS for map styling -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <!-- @brief Basic styling for map container -->
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- @brief Main map container -->
+    <div id="map"></div>
+
+    <!-- @brief Leaflet JavaScript library -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // @brief Initialize the map centered on Vorarlberg
+        const map = L.map('map').setView([47.2490, 9.9790], 13);
+
+        // @brief Add OpenStreetMap tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        // @brief Marker for user position
+        let userMarker = null;
+
+        /**
+         * @brief Updates the user's position on the map
+         * @param lat The latitude coordinate
+         * @param lng The longitude coordinate
+         * @details Creates a new marker if none exists, otherwise updates existing marker
+         */
+        function updatePosition(lat, lng) {
+            if (userMarker) {
+                userMarker.setLatLng([lat, lng]);
+            } else {
+                userMarker = L.marker([lat, lng]).addTo(map)
+                    .bindPopup('Deine Position').openPopup();
+            }
+            map.setView([lat, lng], 16);
+        }
+
+        /**
+         * @brief Centers the map view on Vorarlberg region
+         * @details Sets the map view to coordinates [47.2490, 9.9790] with zoom level 10
+         */
+        function centerVorarlberg() {
+            map.setView([47.2490, 9.9790], 10);
+        }
+    </script>
+    <script>
+        // @brief Global functions for MAUI communication
+        
+        /**
+         * @brief Global function to update position from MAUI
+         * @param lat The latitude coordinate
+         * @param lng The longitude coordinate
+         * @details Exposed to MAUI for updating user position on the map
+         */
+        window.updatePosition = function (lat, lng) {
+            if (window.userMarker) {
+                userMarker.setLatLng([lat, lng]);
+            } else {
+                window.userMarker = L.marker([lat, lng]).addTo(map)
+                    .bindPopup('Deine Position').openPopup();
+            }
+            map.setView([lat, lng], 16);
+        }
+
+        /**
+         * @brief Global function to center map on Vorarlberg from MAUI
+         * @details Exposed to MAUI for centering the map view on Vorarlberg region
+         */
+        window.centerVorarlberg = function () {
+            map.setView([47.2490, 9.9790], 10);
+        }
+    </script>
+</body>
+</html>

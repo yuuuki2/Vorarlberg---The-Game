@@ -1,0 +1,74 @@
+<!-- 
+    @file InfoPage.xaml
+    @brief Game information display page
+    @details Displays detailed information about the current game session,
+             including player roles, game duration, and scores
+-->
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Game.InfoPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Info"
+    BackgroundColor="#000152">
+
+    <!-- Main scroll container -->
+    <ScrollView>
+        <!-- Content layout -->
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <!-- Page title -->
+            <Label
+                Text="Game Information:"
+                FontSize="20"
+                FontAttributes="Bold"
+                TextColor="White" />
+            <!-- Role information -->
+            <Label Text="Role:" TextColor="White" />
+            <Label x:Name="RoleLabel" TextColor="White" FontAttributes="Bold" />
+            <!-- Game start time -->
+            <Label Text="Game Started:" TextColor="White" />
+            <Label x:Name="StartTimeLabel" TextColor="White" FontAttributes="Bold" />
+            <!-- Score display -->
+            <Label Text="Score:" TextColor="White" />
+            <Label x:Name="ScoreLabel" TextColor="White" FontAttributes="Bold" />
+            <!-- Server IP address -->
+            <Label Text="Server IP:" TextColor="White" />
+            <Label x:Name="ServerLabel" TextColor="White" FontAttributes="Bold" />
+
+            <BoxView HeightRequest="1" Color="Gray" Margin="0,10" />
+
+            <!-- Player information section -->
+            <Label
+                Text="Player Information:"
+                FontSize="20"
+                FontAttributes="Bold"
+                TextColor="White" />
+            <!-- Your coordinates -->
+            <Label Text="Your Coords:" TextColor="White" />
+            <Label x:Name="YourCoordsLabel" TextColor="White" FontAttributes="Bold" />
+            <!-- Seeker coordinates -->
+            <Label Text="Seeker Coords:" TextColor="White" />
+            <Label x:Name="SeekerCoordsLabel" TextColor="White" FontAttributes="Bold" />
+            <!-- Your municipality -->
+            <Label Text="Your Gemeinde:" TextColor="White" />
+            <Label x:Name="YourMunicipalityLabel" TextColor="White" FontAttributes="Bold" />
+            <!-- Seeker municipality -->
+            <Label Text="Seeker Gemeinde:" TextColor="White" />
+            <Label x:Name="SeekerMunicipalityLabel" TextColor="White" FontAttributes="Bold" />
+            <!-- Your bus station -->
+            <Label Text="Your Bus Station:" TextColor="White" />
+            <Label x:Name="YourStationLabel" TextColor="White" FontAttributes="Bold" />
+            <!-- Seeker bus station -->
+            <Label Text="Seeker Bus Station:" TextColor="White" />
+            <Label x:Name="SeekerStationLabel" TextColor="White" FontAttributes="Bold" />
+
+            <!-- Navigation button -->
+            <Button
+                Text="Back"
+                BackgroundColor="Red"
+                TextColor="White"
+                CornerRadius="10"
+                Clicked="OnBackClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

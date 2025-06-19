@@ -1,0 +1,72 @@
+﻿<!-- 
+    @file MainPage.xaml
+    @brief Main page of the application containing the primary UI layout
+    @details This page serves as the main interface of the application,
+             featuring a vertical stack layout with various UI elements
+             including shapes and controls with a specific background color
+-->
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:shapes="clr-namespace:Microsoft.Maui.Controls.Shapes;assembly=Microsoft.Maui.Controls"
+             x:Class="Game.MainPage"
+             BackgroundColor="#000152">
+
+    <ScrollView>
+        <!-- Main vertical stack layout containing all page elements -->
+        <VerticalStackLayout
+            VerticalOptions="Start"
+            HorizontalOptions="Center"
+            Spacing="30">
+
+            <!-- Pyramide mit Kreis - Visual element combining pyramid and circle shapes -->
+            <Grid HorizontalOptions="Center" 
+                  VerticalOptions="Start"
+                  WidthRequest="100" 
+                  HeightRequest="120">
+
+                <Ellipse Fill="White"
+                     WidthRequest="50"
+                     HeightRequest="50"
+                     VerticalOptions="End"
+                     HorizontalOptions="Center"
+                     Margin="0,-20,0,0"/>
+
+                <shapes:Polygon Points="0,0 100,0 50,100"
+                     Fill="Red"
+                     VerticalOptions="Start"
+                     HorizontalOptions="Center"/>
+            </Grid>
+
+            <!-- Titel und Buttons - Section containing the game title and action buttons -->
+            <VerticalStackLayout
+                Padding="80"
+                Spacing="30"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+
+                <Label Text="Vorarlberg The Game"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="Center"/>
+
+                <Button Text="JOIN SESSION"
+                        BackgroundColor="Red"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        CornerRadius="12"
+                        HorizontalOptions="Fill"
+                        Clicked="OnJoinSessionClicked"/>
+
+                <Button Text="EXIT"
+                        BackgroundColor="White"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        CornerRadius="12"
+                        HorizontalOptions="Fill"
+                        Clicked="OnExitClicked"/>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

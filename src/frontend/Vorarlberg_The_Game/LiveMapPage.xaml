@@ -1,0 +1,56 @@
+<!-- 
+    @file LiveMapPage.xaml
+    @brief Live map page displaying real-time location information
+    @details This page provides a web-based map view and navigation controls
+             for displaying and interacting with live location data
+-->
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Game.LiveMapPage"
+             Title="Live Map"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#000152">
+
+    <!-- Main grid layout with map and navigation controls -->
+    <Grid RowDefinitions="*, 60">
+        <!-- Map WebView component -->
+        <WebView x:Name="MapWebView"
+                 Grid.Row="0"
+                 Navigated="OnWebViewNavigated" />
+
+        <!-- Navigation control panel -->
+        <Grid Grid.Row="1"
+              BackgroundColor="White"
+              Padding="10,5"
+              ColumnDefinitions="*,*,*,*">
+            <!-- 4 columns for navigation buttons -->
+
+            <!-- Button configuration with icons: carddeck.png, question.png, info.png, tool.png -->
+
+            <!-- Button 0 (CardDeck oder Question) -->
+            <ImageButton x:Name="Button0"
+                         Grid.Column="0"
+                         BackgroundColor="Transparent"
+                         Clicked="OnButton0Clicked"/>
+
+            <!-- Button 1 (Question oder Curse) -->
+            <ImageButton x:Name="Button1"
+                         Grid.Column="1"
+                         BackgroundColor="Transparent"
+                         Clicked="OnButton1Clicked"/>
+
+            <!-- Button 2 (Info) -->
+            <ImageButton Source="info.png"
+                         Grid.Column="2"
+                         BackgroundColor="Transparent"
+                         Clicked="OnButton2Clicked"/>
+
+            <!-- Button 3 (Tool) -->
+            <ImageButton Source="tool.png"
+                         Grid.Column="3"
+                         BackgroundColor="Transparent"
+                         Clicked="OnButton3Clicked"/>
+        </Grid>
+    </Grid>
+</ContentPage>

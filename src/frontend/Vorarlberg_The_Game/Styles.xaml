@@ -1,0 +1,40 @@
+﻿<!-- 
+    @file Styles.xaml
+    @brief Global application styles and resources
+    @details Defines the application's color palette, shadows, and
+             global styles for consistent UI appearance
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- Farbpalette -->
+    <Color x:Key="Primary">#4361ee</Color>
+    <Color x:Key="Secondary">#f8f9fa</Color>
+    <Color x:Key="TextPrimary">#212529</Color>
+    <Color x:Key="TextSecondary">#6c757d</Color>
+    <Color x:Key="PageBackground">#f1f4f9</Color>
+
+    <!-- Schatten -->
+    <Shadow x:Key="ShadowBrush" 
+            Brush="#40000000"
+            Offset="0,5"
+            Radius="10"
+            Opacity="0.2"/>
+
+    <!-- Globale Stile -->
+    <Style TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource TextPrimary}"/>
+    </Style>
+
+    <Style TargetType="Button">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontAttributes" Value="Bold"/>
+        <Setter Property="Padding" Value="15,10"/>
+    </Style>
+
+    <Style TargetType="SearchBar">
+        <Setter Property="CancelButtonColor" Value="{StaticResource Primary}"/>
+        <Setter Property="TextColor" Value="{StaticResource TextPrimary}"/>
+        <Setter Property="PlaceholderColor" Value="{StaticResource TextSecondary}"/>
+    </Style>
+</ResourceDictionary>

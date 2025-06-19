@@ -1,0 +1,73 @@
+<!-- 
+    @file QuestionsPage.xaml
+    @brief Game questions management page
+    @details Displays and manages the questions available to players
+             during the game session
+-->
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Game.QuestionsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Questions"
+    BackgroundColor="#000152">
+
+    <!-- Main scroll container -->
+    <ScrollView>
+        <!-- Content layout -->
+        <VerticalStackLayout Padding="20" Spacing="20">
+            <!-- Page title -->
+            <Label
+                Text="Available Questions:"
+                FontSize="20"
+                FontAttributes="Bold"
+                TextColor="White" />
+            <!-- Available questions list -->
+            <CollectionView
+                x:Name="AvailableQuestionsView"
+                HeightRequest="100"
+                BackgroundColor="White" />
+
+            <Label
+                Text="Current Question:"
+                FontSize="20"
+                FontAttributes="Bold"
+                TextColor="White" />
+            <Label
+                x:Name="CurrentQuestionLabel"
+                TextColor="White"
+                FontSize="18" />
+
+            <Label
+                Text="Past Questions and Answers:"
+                FontSize="20"
+                FontAttributes="Bold"
+                TextColor="White" />
+            <CollectionView
+                x:Name="PastQAView"
+                HeightRequest="150"
+                BackgroundColor="White">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10">
+                            <Label
+                                Text="{Binding Question}"
+                                FontAttributes="Bold"
+                                TextColor="Black" />
+                            <Label
+                                Text="{Binding Answer}"
+                                TextColor="Black" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button
+                Text="Back"
+                BackgroundColor="Red"
+                TextColor="White"
+                CornerRadius="10"
+                Clicked="OnBackClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

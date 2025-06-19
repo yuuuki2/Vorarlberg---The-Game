@@ -1,0 +1,53 @@
+<!-- 
+    @file CursesPage.xaml
+    @brief Curses status and management page
+    @details Displays and manages the active curses affecting players
+             in the game, including their status and effects
+-->
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Game.CursesPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Curses"
+    BackgroundColor="#000152">
+
+    <!-- Main scroll container -->
+    <ScrollView>
+        <!-- Content layout -->
+        <VerticalStackLayout Padding="20" Spacing="20">
+            <!-- Page title -->
+            <Label
+                Text="Curses Affecting Seekers:"
+                FontSize="20"
+                FontAttributes="Bold"
+                TextColor="White" />
+            <!-- Curses list view -->
+            <CollectionView
+                x:Name="CursesView"
+                HeightRequest="200"
+                BackgroundColor="White">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame
+              Padding="10"
+              Margin="5"
+              CornerRadius="5"
+              BackgroundColor="#f8f9fa">
+                            <Label
+                Text="{Binding}"
+                TextColor="#212529" />
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button
+        Text="Back"
+        BackgroundColor="Red"
+        TextColor="White"
+        CornerRadius="10"
+        Clicked="OnBackClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
