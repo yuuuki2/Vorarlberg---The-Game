@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Maui.Controls;
+using Microsoft.Extensions.Logging;
 
 namespace Game
 {
@@ -9,10 +10,15 @@ namespace Game
     ///          including their effects and duration
     public partial class CursesPage : ContentPage
     {
+        private readonly ILogger<CursesPage> _logger;
+
         /// @brief Constructor for CursesPage
         /// @details Initializes the page with hardcoded example curses
-        public CursesPage()
+        public CursesPage(ILogger<CursesPage> logger)
         {
+            _logger = logger;
+            _logger.LogInformation("Initializing CursesPage...");
+
             InitializeComponent();
 
             // Example curses
@@ -22,13 +28,16 @@ namespace Game
                 "Blind",
                 "Confusion"
             };
+
+            _logger.LogInformation("CursesPage initialized with sample curses.");
         }
 
         /// <summary>
-        /// Navigiert zur�ck zur LiveMapPage.
+        /// Navigiert zurück zur LiveMapPage.
         /// </summary>
         private async void OnBackClicked(object sender, System.EventArgs e)
         {
+            _logger.LogInformation("Back button clicked – navigating to LiveMapPage...");
             await Navigation.PopModalAsync();
         }
     }

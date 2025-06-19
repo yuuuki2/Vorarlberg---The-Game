@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Logging;
+
 namespace Game;
 
 /// @class CardDeckPage
@@ -6,10 +8,17 @@ namespace Game;
 ///          card deck system
 public partial class CardDeckPage : ContentPage
 {
+    private readonly ILogger<CardDeckPage> _logger;
+
     /// @brief Constructor for CardDeckPage
     /// @details Initializes the card deck page components
-    public CardDeckPage()
+    public CardDeckPage(ILogger<CardDeckPage> logger)
     {
+        _logger = logger;
+        _logger.LogInformation("Initializing CardDeckPage...");
+
         InitializeComponent();
+
+        _logger.LogInformation("CardDeckPage initialized.");
     }
 }

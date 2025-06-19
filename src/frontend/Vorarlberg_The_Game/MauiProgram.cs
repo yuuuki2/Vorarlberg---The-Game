@@ -29,8 +29,20 @@ namespace Game
                     fonts.AddFont("fa-solid-900.ttf", "FontAwesome");
                 });
 
+            // Logging
             builder.Logging.AddDebug();
 
+            // Dependency Injection für Seiten mit ILogger
+            builder.Services.AddSingleton<AppShell>();
+            builder.Services.AddTransient<MainPage>();
+            builder.Services.AddTransient<JoinSessionPage>();
+            builder.Services.AddTransient<RoomPage>();
+            builder.Services.AddTransient<InfoPage>();
+            builder.Services.AddTransient<LiveMapPage>();
+            builder.Services.AddTransient<WuerfelPage>();
+            builder.Services.AddTransient<QuestionsPage>();
+            builder.Services.AddTransient<CursesPage>();
+            builder.Services.AddTransient<CardDeckPage>();
 
             return builder.Build();
         }

@@ -3,10 +3,6 @@
   "WorkspaceRootPath": "C:\\Users\\manue\\Downloads\\bob\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|c:\\users\\manue\\downloads\\bob\\joinsessionpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|solutionrelative:joinsessionpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|c:\\users\\manue\\downloads\\bob\\livemappage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|solutionrelative:livemappage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -15,20 +11,8 @@
       "RelativeMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|solutionrelative:appshell.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|c:\\users\\manue\\downloads\\bob\\suchepage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|solutionrelative:suchepage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|c:\\users\\manue\\downloads\\bob\\questionspage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|solutionrelative:questionspage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|c:\\users\\manue\\downloads\\bob\\roompage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|solutionrelative:roompage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|c:\\users\\manue\\downloads\\bob\\wuerfelpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|solutionrelative:wuerfelpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|c:\\users\\manue\\downloads\\bob\\infopage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -42,24 +26,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "JoinSessionPage.xaml",
-              "DocumentMoniker": "C:\\Users\\manue\\Downloads\\bob\\JoinSessionPage.xaml",
-              "RelativeDocumentMoniker": "JoinSessionPage.xaml",
-              "ToolTip": "C:\\Users\\manue\\Downloads\\bob\\JoinSessionPage.xaml",
-              "RelativeToolTip": "JoinSessionPage.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABCAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-06-19T14:41:23.906Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "AppShell.xaml.cs",
               "DocumentMoniker": "C:\\Users\\manue\\Downloads\\bob\\AppShell.xaml.cs",
               "RelativeDocumentMoniker": "AppShell.xaml.cs",
@@ -67,25 +38,11 @@
               "RelativeToolTip": "AppShell.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-19T14:41:19.49Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-19T14:41:19.49Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "SuchePage.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\manue\\Downloads\\bob\\SuchePage.xaml.cs",
-              "RelativeDocumentMoniker": "SuchePage.xaml.cs",
-              "ToolTip": "C:\\Users\\manue\\Downloads\\bob\\SuchePage.xaml.cs",
-              "RelativeToolTip": "SuchePage.xaml.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAswBYAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-19T14:41:18.434Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "QuestionsPage.xaml",
               "DocumentMoniker": "C:\\Users\\manue\\Downloads\\bob\\QuestionsPage.xaml",
               "RelativeDocumentMoniker": "QuestionsPage.xaml",
@@ -93,38 +50,11 @@
               "RelativeToolTip": "QuestionsPage.xaml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-06-19T14:41:16.109Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-19T14:41:16.109Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "RoomPage.xaml",
-              "DocumentMoniker": "C:\\Users\\manue\\Downloads\\bob\\RoomPage.xaml",
-              "RelativeDocumentMoniker": "RoomPage.xaml",
-              "ToolTip": "C:\\Users\\manue\\Downloads\\bob\\RoomPage.xaml",
-              "RelativeToolTip": "RoomPage.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-06-19T14:41:15.049Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "WuerfelPage.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\manue\\Downloads\\bob\\WuerfelPage.xaml.cs",
-              "RelativeDocumentMoniker": "WuerfelPage.xaml.cs",
-              "ToolTip": "C:\\Users\\manue\\Downloads\\bob\\WuerfelPage.xaml.cs",
-              "RelativeToolTip": "WuerfelPage.xaml.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAswCAAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-19T14:41:12.1Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 3,
               "Title": "InfoPage.xaml.cs",
               "DocumentMoniker": "C:\\Users\\manue\\Downloads\\bob\\InfoPage.xaml.cs",
               "RelativeDocumentMoniker": "InfoPage.xaml.cs",
@@ -132,12 +62,11 @@
               "RelativeToolTip": "InfoPage.xaml.cs",
               "ViewState": "AgIAAAIAAAAAAAAAAAAswBIAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-19T14:41:11.066Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-19T14:41:11.066Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "LiveMapPage.xaml.cs",
               "DocumentMoniker": "C:\\Users\\manue\\Downloads\\bob\\LiveMapPage.xaml.cs",
               "RelativeDocumentMoniker": "LiveMapPage.xaml.cs",

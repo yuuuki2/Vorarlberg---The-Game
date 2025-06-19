@@ -1,22 +1,58 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\manue\\Downloads\\bob\\",
+  "WorkspaceRootPath": "C:\\Users\\Sascha Zhang\\OneDrive - HTL-Rankweil\\HTL\\3AHIF_2024_25\\POS\\Aufgaben\\Projekt\\Vorarlberg---The-Game\\src\\frontend\\Vorarlberg_The_Game\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|c:\\users\\manue\\downloads\\bob\\livemappage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|c:\\users\\sascha zhang\\onedrive - htl-rankweil\\htl\\3ahif_2024_25\\pos\\aufgaben\\projekt\\vorarlberg---the-game\\src\\frontend\\vorarlberg_the_game\\wuerfelpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|solutionrelative:wuerfelpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|c:\\users\\sascha zhang\\onedrive - htl-rankweil\\htl\\3ahif_2024_25\\pos\\aufgaben\\projekt\\vorarlberg---the-game\\src\\frontend\\vorarlberg_the_game\\suchepage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|solutionrelative:suchepage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|c:\\users\\sascha zhang\\onedrive - htl-rankweil\\htl\\3ahif_2024_25\\pos\\aufgaben\\projekt\\vorarlberg---the-game\\src\\frontend\\vorarlberg_the_game\\roompage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|solutionrelative:roompage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|c:\\users\\sascha zhang\\onedrive - htl-rankweil\\htl\\3ahif_2024_25\\pos\\aufgaben\\projekt\\vorarlberg---the-game\\src\\frontend\\vorarlberg_the_game\\questionspage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|solutionrelative:questionspage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|c:\\users\\sascha zhang\\onedrive - htl-rankweil\\htl\\3ahif_2024_25\\pos\\aufgaben\\projekt\\vorarlberg---the-game\\src\\frontend\\vorarlberg_the_game\\mauiprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|solutionrelative:mauiprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|c:\\users\\sascha zhang\\onedrive - htl-rankweil\\htl\\3ahif_2024_25\\pos\\aufgaben\\projekt\\vorarlberg---the-game\\src\\frontend\\vorarlberg_the_game\\mainpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|solutionrelative:mainpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|c:\\users\\sascha zhang\\onedrive - htl-rankweil\\htl\\3ahif_2024_25\\pos\\aufgaben\\projekt\\vorarlberg---the-game\\src\\frontend\\vorarlberg_the_game\\livemappage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|solutionrelative:livemappage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|c:\\users\\manue\\downloads\\bob\\appshell.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|c:\\users\\sascha zhang\\onedrive - htl-rankweil\\htl\\3ahif_2024_25\\pos\\aufgaben\\projekt\\vorarlberg---the-game\\src\\frontend\\vorarlberg_the_game\\infopage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|solutionrelative:infopage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|c:\\users\\sascha zhang\\onedrive - htl-rankweil\\htl\\3ahif_2024_25\\pos\\aufgaben\\projekt\\vorarlberg---the-game\\src\\frontend\\vorarlberg_the_game\\joinsessionpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|solutionrelative:joinsessionpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|c:\\users\\sascha zhang\\onedrive - htl-rankweil\\htl\\3ahif_2024_25\\pos\\aufgaben\\projekt\\vorarlberg---the-game\\src\\frontend\\vorarlberg_the_game\\cursespage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|solutionrelative:cursespage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|c:\\users\\sascha zhang\\onedrive - htl-rankweil\\htl\\3ahif_2024_25\\pos\\aufgaben\\projekt\\vorarlberg---the-game\\src\\frontend\\vorarlberg_the_game\\carddeckpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|solutionrelative:carddeckpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|c:\\users\\sascha zhang\\onedrive - htl-rankweil\\htl\\3ahif_2024_25\\pos\\aufgaben\\projekt\\vorarlberg---the-game\\src\\frontend\\vorarlberg_the_game\\appshell.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|solutionrelative:appshell.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|c:\\users\\manue\\downloads\\bob\\questionspage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|solutionrelative:questionspage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|c:\\users\\manue\\downloads\\bob\\infopage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|solutionrelative:infopage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|c:\\users\\sascha zhang\\onedrive - htl-rankweil\\htl\\3ahif_2024_25\\pos\\aufgaben\\projekt\\vorarlberg---the-game\\src\\frontend\\vorarlberg_the_game\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E6C320E-28E7-4A52-8CCC-63C2EFC8427F}|Game.csproj|solutionrelative:app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,55 +62,183 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AppShell.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\manue\\Downloads\\bob\\AppShell.xaml.cs",
-              "RelativeDocumentMoniker": "AppShell.xaml.cs",
-              "ToolTip": "C:\\Users\\manue\\Downloads\\bob\\AppShell.xaml.cs",
-              "RelativeToolTip": "AppShell.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAMAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "WuerfelPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Sascha Zhang\\OneDrive - HTL-Rankweil\\HTL\\3AHIF_2024_25\\POS\\Aufgaben\\Projekt\\Vorarlberg---The-Game\\src\\frontend\\Vorarlberg_The_Game\\WuerfelPage.xaml.cs",
+              "RelativeDocumentMoniker": "WuerfelPage.xaml.cs",
+              "ToolTip": "C:\\Users\\Sascha Zhang\\OneDrive - HTL-Rankweil\\HTL\\3AHIF_2024_25\\POS\\Aufgaben\\Projekt\\Vorarlberg---The-Game\\src\\frontend\\Vorarlberg_The_Game\\WuerfelPage.xaml.cs",
+              "RelativeToolTip": "WuerfelPage.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-19T14:41:19.49Z"
+              "WhenOpened": "2025-06-19T17:38:51.523Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SuchePage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Sascha Zhang\\OneDrive - HTL-Rankweil\\HTL\\3AHIF_2024_25\\POS\\Aufgaben\\Projekt\\Vorarlberg---The-Game\\src\\frontend\\Vorarlberg_The_Game\\SuchePage.xaml.cs",
+              "RelativeDocumentMoniker": "SuchePage.xaml.cs",
+              "ToolTip": "C:\\Users\\Sascha Zhang\\OneDrive - HTL-Rankweil\\HTL\\3AHIF_2024_25\\POS\\Aufgaben\\Projekt\\Vorarlberg---The-Game\\src\\frontend\\Vorarlberg_The_Game\\SuchePage.xaml.cs",
+              "RelativeToolTip": "SuchePage.xaml.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAmwEEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-19T17:38:26.877Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "QuestionsPage.xaml",
-              "DocumentMoniker": "C:\\Users\\manue\\Downloads\\bob\\QuestionsPage.xaml",
-              "RelativeDocumentMoniker": "QuestionsPage.xaml",
-              "ToolTip": "C:\\Users\\manue\\Downloads\\bob\\QuestionsPage.xaml",
-              "RelativeToolTip": "QuestionsPage.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-06-19T14:41:16.109Z"
+              "Title": "RoomPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Sascha Zhang\\OneDrive - HTL-Rankweil\\HTL\\3AHIF_2024_25\\POS\\Aufgaben\\Projekt\\Vorarlberg---The-Game\\src\\frontend\\Vorarlberg_The_Game\\RoomPage.xaml.cs",
+              "RelativeDocumentMoniker": "RoomPage.xaml.cs",
+              "ToolTip": "C:\\Users\\Sascha Zhang\\OneDrive - HTL-Rankweil\\HTL\\3AHIF_2024_25\\POS\\Aufgaben\\Projekt\\Vorarlberg---The-Game\\src\\frontend\\Vorarlberg_The_Game\\RoomPage.xaml.cs",
+              "RelativeToolTip": "RoomPage.xaml.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAA6wDcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-19T17:37:35.638Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "InfoPage.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\manue\\Downloads\\bob\\InfoPage.xaml.cs",
-              "RelativeDocumentMoniker": "InfoPage.xaml.cs",
-              "ToolTip": "C:\\Users\\manue\\Downloads\\bob\\InfoPage.xaml.cs",
-              "RelativeToolTip": "InfoPage.xaml.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAswBIAAAAMAAAAAAAAAA==",
+              "Title": "QuestionsPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Sascha Zhang\\OneDrive - HTL-Rankweil\\HTL\\3AHIF_2024_25\\POS\\Aufgaben\\Projekt\\Vorarlberg---The-Game\\src\\frontend\\Vorarlberg_The_Game\\QuestionsPage.xaml.cs",
+              "RelativeDocumentMoniker": "QuestionsPage.xaml.cs",
+              "ToolTip": "C:\\Users\\Sascha Zhang\\OneDrive - HTL-Rankweil\\HTL\\3AHIF_2024_25\\POS\\Aufgaben\\Projekt\\Vorarlberg---The-Game\\src\\frontend\\Vorarlberg_The_Game\\QuestionsPage.xaml.cs",
+              "RelativeToolTip": "QuestionsPage.xaml.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAuwD4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-19T14:41:11.066Z"
+              "WhenOpened": "2025-06-19T17:37:07.672Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "LiveMapPage.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\manue\\Downloads\\bob\\LiveMapPage.xaml.cs",
-              "RelativeDocumentMoniker": "LiveMapPage.xaml.cs",
-              "ToolTip": "C:\\Users\\manue\\Downloads\\bob\\LiveMapPage.xaml.cs",
-              "RelativeToolTip": "LiveMapPage.xaml.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAAAswCoAAAAQAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "MauiProgram.cs",
+              "DocumentMoniker": "C:\\Users\\Sascha Zhang\\OneDrive - HTL-Rankweil\\HTL\\3AHIF_2024_25\\POS\\Aufgaben\\Projekt\\Vorarlberg---The-Game\\src\\frontend\\Vorarlberg_The_Game\\MauiProgram.cs",
+              "RelativeDocumentMoniker": "MauiProgram.cs",
+              "ToolTip": "C:\\Users\\Sascha Zhang\\OneDrive - HTL-Rankweil\\HTL\\3AHIF_2024_25\\POS\\Aufgaben\\Projekt\\Vorarlberg---The-Game\\src\\frontend\\Vorarlberg_The_Game\\MauiProgram.cs",
+              "RelativeToolTip": "MauiProgram.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAmwDIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-19T14:40:14.808Z",
+              "WhenOpened": "2025-06-19T17:36:42.209Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "MainPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Sascha Zhang\\OneDrive - HTL-Rankweil\\HTL\\3AHIF_2024_25\\POS\\Aufgaben\\Projekt\\Vorarlberg---The-Game\\src\\frontend\\Vorarlberg_The_Game\\MainPage.xaml.cs",
+              "RelativeDocumentMoniker": "MainPage.xaml.cs",
+              "ToolTip": "C:\\Users\\Sascha Zhang\\OneDrive - HTL-Rankweil\\HTL\\3AHIF_2024_25\\POS\\Aufgaben\\Projekt\\Vorarlberg---The-Game\\src\\frontend\\Vorarlberg_The_Game\\MainPage.xaml.cs",
+              "RelativeToolTip": "MainPage.xaml.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAqwCIAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-19T17:35:47.721Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "LiveMapPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Sascha Zhang\\OneDrive - HTL-Rankweil\\HTL\\3AHIF_2024_25\\POS\\Aufgaben\\Projekt\\Vorarlberg---The-Game\\src\\frontend\\Vorarlberg_The_Game\\LiveMapPage.xaml.cs",
+              "RelativeDocumentMoniker": "LiveMapPage.xaml.cs",
+              "ToolTip": "C:\\Users\\Sascha Zhang\\OneDrive - HTL-Rankweil\\HTL\\3AHIF_2024_25\\POS\\Aufgaben\\Projekt\\Vorarlberg---The-Game\\src\\frontend\\Vorarlberg_The_Game\\LiveMapPage.xaml.cs",
+              "RelativeToolTip": "LiveMapPage.xaml.cs",
+              "ViewState": "AgIAAMkAAAAAAAAAAAAmwNsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-19T17:35:06.022Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "JoinSessionPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Sascha Zhang\\OneDrive - HTL-Rankweil\\HTL\\3AHIF_2024_25\\POS\\Aufgaben\\Projekt\\Vorarlberg---The-Game\\src\\frontend\\Vorarlberg_The_Game\\JoinSessionPage.xaml.cs",
+              "RelativeDocumentMoniker": "JoinSessionPage.xaml.cs",
+              "ToolTip": "C:\\Users\\Sascha Zhang\\OneDrive - HTL-Rankweil\\HTL\\3AHIF_2024_25\\POS\\Aufgaben\\Projekt\\Vorarlberg---The-Game\\src\\frontend\\Vorarlberg_The_Game\\JoinSessionPage.xaml.cs",
+              "RelativeToolTip": "JoinSessionPage.xaml.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAmwDkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-19T17:34:26.577Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "InfoPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Sascha Zhang\\OneDrive - HTL-Rankweil\\HTL\\3AHIF_2024_25\\POS\\Aufgaben\\Projekt\\Vorarlberg---The-Game\\src\\frontend\\Vorarlberg_The_Game\\InfoPage.xaml.cs",
+              "RelativeDocumentMoniker": "InfoPage.xaml.cs",
+              "ToolTip": "C:\\Users\\Sascha Zhang\\OneDrive - HTL-Rankweil\\HTL\\3AHIF_2024_25\\POS\\Aufgaben\\Projekt\\Vorarlberg---The-Game\\src\\frontend\\Vorarlberg_The_Game\\InfoPage.xaml.cs",
+              "RelativeToolTip": "InfoPage.xaml.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAAACcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-19T17:34:01.922Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "CursesPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Sascha Zhang\\OneDrive - HTL-Rankweil\\HTL\\3AHIF_2024_25\\POS\\Aufgaben\\Projekt\\Vorarlberg---The-Game\\src\\frontend\\Vorarlberg_The_Game\\CursesPage.xaml.cs",
+              "RelativeDocumentMoniker": "CursesPage.xaml.cs",
+              "ToolTip": "C:\\Users\\Sascha Zhang\\OneDrive - HTL-Rankweil\\HTL\\3AHIF_2024_25\\POS\\Aufgaben\\Projekt\\Vorarlberg---The-Game\\src\\frontend\\Vorarlberg_The_Game\\CursesPage.xaml.cs",
+              "RelativeToolTip": "CursesPage.xaml.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAmwCwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-19T17:33:06.36Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "CardDeckPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Sascha Zhang\\OneDrive - HTL-Rankweil\\HTL\\3AHIF_2024_25\\POS\\Aufgaben\\Projekt\\Vorarlberg---The-Game\\src\\frontend\\Vorarlberg_The_Game\\CardDeckPage.xaml.cs",
+              "RelativeDocumentMoniker": "CardDeckPage.xaml.cs",
+              "ToolTip": "C:\\Users\\Sascha Zhang\\OneDrive - HTL-Rankweil\\HTL\\3AHIF_2024_25\\POS\\Aufgaben\\Projekt\\Vorarlberg---The-Game\\src\\frontend\\Vorarlberg_The_Game\\CardDeckPage.xaml.cs",
+              "RelativeToolTip": "CardDeckPage.xaml.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAqwBgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-19T17:32:13.049Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "AppShell.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Sascha Zhang\\OneDrive - HTL-Rankweil\\HTL\\3AHIF_2024_25\\POS\\Aufgaben\\Projekt\\Vorarlberg---The-Game\\src\\frontend\\Vorarlberg_The_Game\\AppShell.xaml.cs",
+              "RelativeDocumentMoniker": "AppShell.xaml.cs",
+              "ToolTip": "C:\\Users\\Sascha Zhang\\OneDrive - HTL-Rankweil\\HTL\\3AHIF_2024_25\\POS\\Aufgaben\\Projekt\\Vorarlberg---The-Game\\src\\frontend\\Vorarlberg_The_Game\\AppShell.xaml.cs",
+              "RelativeToolTip": "AppShell.xaml.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAowBMAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-19T17:30:22.774Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Sascha Zhang\\OneDrive - HTL-Rankweil\\HTL\\3AHIF_2024_25\\POS\\Aufgaben\\Projekt\\Vorarlberg---The-Game\\src\\frontend\\Vorarlberg_The_Game\\App.xaml.cs",
+              "RelativeDocumentMoniker": "App.xaml.cs",
+              "ToolTip": "C:\\Users\\Sascha Zhang\\OneDrive - HTL-Rankweil\\HTL\\3AHIF_2024_25\\POS\\Aufgaben\\Projekt\\Vorarlberg---The-Game\\src\\frontend\\Vorarlberg_The_Game\\App.xaml.cs",
+              "RelativeToolTip": "App.xaml.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAmwBsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-19T17:29:24.25Z",
               "EditorCaption": ""
             }
           ]
